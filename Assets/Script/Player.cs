@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public int score = 0;
     public string Pname = null;
     public bool cry = false;
-
+    public 
     void Start()
     {
          
