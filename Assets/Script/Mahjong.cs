@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mahjong 
+public class Mahjong :MonoBehaviour
 {
     public int rank; //¼ø¹ø
     public string patt;
