@@ -7,13 +7,12 @@ public class Player : MonoBehaviour
     public int score = 0;
     public string Pname = null;
     public bool cry = false;
-    public 
+    public bool riched = false;
     void Start()
     {
-         
+      
     }
 
-    // Update is called once per frame
     void Update()
     {
         
