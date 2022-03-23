@@ -11,7 +11,7 @@ public class Mahjong
     public int num;
     public Sprite sprites;
     public bool used = false;
-
+   
     public Mahjong(int a, string b, int c, Sprite sprite, bool d)
     {
         rank = a;
@@ -34,7 +34,7 @@ public class Pedigree
         Pname = c;
         Pcry = d;
     }
-
+    
 }
 
 
@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     public Player[] players = new Player[4];
     public List<Mahjong> Lmahjongs = new List<Mahjong>();
     public List<Mahjong> Tmahjongs = new List<Mahjong>();
+    public bool turning = false;
     private void Awake()
     {
 
@@ -191,26 +192,65 @@ public class GameManager : MonoBehaviour
             }
             
             Button button = transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+            button.gameObject.SetActive(true);
             buttons[buttons.Length-1] = button;
             buttons[buttons.Length - 1].image.sprite = Lmahjongs[0].sprites;
-            players[0].turned = false;
+            GetComponent<Player>().turned = false;
+            turning = true;
+
         }
     }
     public void MThrow(int a)
     {
-        if( a!= 13)
-        {
-            Tmahjongs.Add(pmahjongs[a]);
-            pmahjongs[a] = Lmahjongs[0];
-            Lmahjongs.Remove(Lmahjongs[0]);
-            ArrayM();
+        if (turning){
+            if (a != 13)
+            {
+                Tmahjongs.Add(pmahjongs[a]);
+                pmahjongs[a] = Lmahjongs[0];
+                Lmahjongs.Remove(Lmahjongs[0]);
+                ArrayM();
+                ShowM();
+
+
+                turning = false;
+                Button button = transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+                button.gameObject.SetActive(false); ;
+
+            }
+            else
+            {
+                Tmahjongs.Add(Lmahjongs[0]);
+                Lmahjongs.Remove(Lmahjongs[0]);
+                ShowM();
+                turning = false;
+                Button button = transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+                button.gameObject.SetActive(false); ;
+            }
         }
-       else
+        
+
+    }
+    void ShowM()
+    {
+        for (int i = 0; i < buttons.Length - 1; i++)
+        {
+            Button button = transform.GetChild(i).GetComponent<Button>();
+            buttons[i] = button;
+            buttons[i].image.sprite = pmahjongs[i].sprites;
+        }
+    }
+    /*int Countscore()
+    {
+
+    }
+    int Agari()
+    {
+        for(int i = 0; i<pmahjongs.Length; i++)
         {
 
         }
-       
-    }
+        if(pmahjongs[0]
+    }*/
     void Start()
     {
 
@@ -220,20 +260,16 @@ public class GameManager : MonoBehaviour
 
 
         players[0].wind = "East";
-        
-      
 
-        
-         for (int i = 0; i < buttons.Length - 1; i++)
-            {
-                Button button = transform.GetChild(i).GetComponent<Button>();
-                buttons[i] = button;
-                buttons[i].image.sprite = pmahjongs[i].sprites;
-            }
-        
+
+
+
+        ShowM();
+
+
         if (players[0].wind == "East")
         {
-            players[0].turned = true;
+            players[0].turned = false;
         }
     }
         // Update is called once per frame
