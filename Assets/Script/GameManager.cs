@@ -11,14 +11,15 @@ public class Mahjong
     public int num;
     public Sprite sprites;
     public bool used = false;
-   
-    public Mahjong(int a, string b, int c, Sprite sprite, bool d)
+    public GameObject prefab;  
+    public Mahjong(int a, string b, int c, Sprite sprite, bool d, GameObject e)
     {
         rank = a;
         patt = b;
         num = c;
         sprites = sprite;
         used = d;
+        prefab = e; 
     }
 }
 [System.Serializable]
@@ -35,6 +36,7 @@ public class Pedigree
         Pcry = d;
     }
     
+    
 }
 
 
@@ -45,13 +47,18 @@ public class GameManager : MonoBehaviour
     Mahjong[] Rmahjongs = new Mahjong[136];
     public Mahjong[] pmahjongs = new Mahjong[13];
     public Button[] buttons = new Button[14];
-    public Sprite[] sprites = new Sprite[37];
+    public Sprite[] sprites = new Sprite[34];
+    public Sprite[] akasprites = new Sprite[3];
     public Pedigree[] pedigrees = new Pedigree[48];
     string[] pedname = new string[4];
     public Player[] players = new Player[4];
     public List<Mahjong> Lmahjongs = new List<Mahjong>();
     public List<Mahjong> Tmahjongs = new List<Mahjong>();
     public bool turning = false;
+    public bool aka = false;
+    public GameObject[] mprefabs = new GameObject[34];
+    public GameObject[] akaprefabs = new GameObject[3];
+    int num2 = 0;
     private void Awake()
     {
 
@@ -60,6 +67,7 @@ public class GameManager : MonoBehaviour
 
 
     }
+    
     void Msetup()
     {
         pedname[0] = "Character";
@@ -68,7 +76,7 @@ public class GameManager : MonoBehaviour
         pedname[3] = "Drangons";
         for (int i = 0; i < mahjongs.Length; i++)
         {
-            mahjongs[i] = new Mahjong(0, "NULL", 0, sprites[0], false);
+            mahjongs[i] = new Mahjong(0, "NULL", 0, sprites[0], false, null);
         }
 
         for (int i = 0; i < mahjongs.Length; i++)
@@ -89,6 +97,7 @@ public class GameManager : MonoBehaviour
             {
                 mahjongs[num].num = i + 1;
                 mahjongs[num].sprites = sprites[i];
+                mahjongs[num].prefab = mprefabs[i];
                 num++;
             }
         }
@@ -99,6 +108,7 @@ public class GameManager : MonoBehaviour
             {
                 mahjongs[36 + num].num = i + 1;
                 mahjongs[36 + num].sprites = sprites[9 + i];
+                mahjongs[36 + num].prefab = mprefabs[9 + i];
                 num++;
             }
         }
@@ -109,6 +119,7 @@ public class GameManager : MonoBehaviour
             {
                 mahjongs[72 + num].num = i + 1;
                 mahjongs[72 + num].sprites = sprites[18 + i];
+                mahjongs[72 + num].prefab = mprefabs[18 + i];
                 num++;
             }
         }
@@ -118,7 +129,7 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < 4; j++)
             {
-                mahjongs[108 + (4 * i) + j] = new Mahjong(108 + (4 * i) + j, pedname[3], i, sprites[27 + i], false);
+                mahjongs[108 + (4 * i) + j] = new Mahjong(108 + (4 * i) + j, pedname[3], i, sprites[27 + i], false, mprefabs[27 + i]);
             }
 
         }
@@ -202,6 +213,9 @@ public class GameManager : MonoBehaviour
     }
     public void MThrow(int a)
     {
+       
+       
+          
         if (turning){
             if (a != 13)
             {
@@ -215,6 +229,7 @@ public class GameManager : MonoBehaviour
                 turning = false;
                 Button button = transform.GetChild(buttons.Length - 1).GetComponent<Button>();
                 button.gameObject.SetActive(false); ;
+               
 
             }
             else
@@ -227,7 +242,11 @@ public class GameManager : MonoBehaviour
                 button.gameObject.SetActive(false); ;
             }
         }
-        
+        GameObject[] maj = new GameObject[50];
+        maj[num2] = Instantiate(Tmahjongs[num2].prefab);
+        maj[num2].transform.Rotate(0, 180, 0);
+        maj[num2].transform.position = new Vector3(-0.0518f + (float)(0.02 * num2), 0.7554f, -0.07f);
+        num2++;
 
     }
     void ShowM()

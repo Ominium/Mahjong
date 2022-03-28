@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 932688864071690322}
   m_Layer: 0
   m_Name: SM_Tile_Bamboo1
-  m_TagString: Untagged
+  m_TagString: Mahjongs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
