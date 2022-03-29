@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public bool riched = false;
     public bool turned = false;
     public string wind = null;
-
+    public bool oya = false;
     public Player(int a, string b, string c)
     {
         score = a;
