@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AI : Player
 {
-    public AI(int a, string b, string c) : base(a, b, c)
+    public AI(int a, string b, string c,bool d) : base(a, b, c,d)
     {
     }
 

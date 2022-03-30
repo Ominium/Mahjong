@@ -12,11 +12,13 @@ public class Player : MonoBehaviour
     public bool turned = false;
     public string wind = null;
     public bool oya = false;
-    public Player(int a, string b, string c)
+    public bool tenpai = false;
+    public Player(int a, string b, string c, bool d)
     {
         score = a;
         Pname = b;
         wind = c;
+        turned = d;
     }
 
     void Start()

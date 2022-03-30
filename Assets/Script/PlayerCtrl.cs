@@ -1,94 +1,167 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
     public GameManager game;
     public Player player;
-    List<Pedigree> playerped = new List<Pedigree>();
-    void Hwaryo()
-    {
-        int Pan = 0;
-        int busu = 0;
-        int score = 0;
-        if (Pan > 4&& (busu >=40|| Pan >= 4))
-        {
-            score = 8000;
-            if(Pan > 5)
-            {
-                score = 12000;
-            }
-            if (Pan > 7)
-            {
-                score = 16000;
-            }
-            if (Pan > 9)
-            {
-                score = 24000;
-            }
-            if (Pan > 12)
-            {
-                score = 32000;
-            }
-            
-        }
-
-
-        if (player.oya)
-        {
-            score = (int)(score * 1.5);
-        }
-
-
-    }
-    int Returnped()
-    {
-        int ddoiz = 0;
-        int cuzz= 0;
-        int sunz = 0;
-        int count;
-        for(count = 0; count < game.pmahjongs.Length-1; count++)
-        {
-            if(game.pmahjongs[count].patt != "Dragon")
-            {
-                if(game.pmahjongs[count].patt == game.pmahjongs[count + 1].patt)
-                {
-                    if(game.pmahjongs[count].num == game.pmahjongs[count + 1].num)
-                    {
-                        if((game.pmahjongs[count].num == game.pmahjongs[count + 2].num)&& game.pmahjongs[count].patt == game.pmahjongs[count + 2].patt)
-                        {
-                            cuzz++;
-                            count = count + 3;
-                        }
-                        else if (game.pmahjongs[count].num == game.pmahjongs[count + 1].num - 1 && game.pmahjongs[count + 1].num - 1 == game.pmahjongs[count + 1].num - 2)
-                        {
-                            sunz++;
-                            count = count + 3;
-                        };
-
-                    }
-                    else if(game.pmahjongs[count].num == game.pmahjongs[count + 1].num-1&& game.pmahjongs[count + 1].num - 1== game.pmahjongs[count + 1].num - 2&& game.pmahjongs[count].patt == game.pmahjongs[count + 2].patt)
-                    {
-                        sunz++;
-                        count = count + 3;
-                    
-                     }
-
-                }
-                
-            }
-        }
-        return 0;
-    }
+    public Mahjong[] pmahjongs = new Mahjong[13];
+    public List<Mahjong> Lmahjongs = new List<Mahjong>();
+    public List<Mahjong> Tmahjongs = new List<Mahjong>();
+    public Button[] buttons = new Button[14];
+    public bool turning = false;
+    int num2 = 0;
     void Start()
     {
+        player = gameObject.GetComponent<Player>();
+        ArrayM();
+        ShowM();
         
+
+    }
+   void ArrayM()
+    {
+        for (int i = 0; i < pmahjongs.Length; i++)
+        {
+            int num = 1;
+            while (num + i < pmahjongs.Length)
+            {
+                if (pmahjongs[i].rank > pmahjongs[i + num].rank && pmahjongs[i + num].num != 0)
+                {
+                    Mahjong mahjong;
+                    mahjong = pmahjongs[i];
+                    pmahjongs[i] = pmahjongs[i + num];
+                    pmahjongs[i + num] = mahjong;
+                }
+                else num++;
+            }
+
+
+
+        }
+
+
     }
 
+    public void MThrow(int a)
+    {
+
+
+
+        if (turning)
+        {
+            if (a != 13)
+            {
+                Tmahjongs.Add(pmahjongs[a]);
+                pmahjongs[a] = Lmahjongs[0];
+                Lmahjongs.Remove(Lmahjongs[0]);
+                ArrayM();
+                ShowM();
+
+
+                turning = false;
+                Button button = game.transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+                button.gameObject.SetActive(false); ;
+
+
+            }
+            else
+            {
+                Tmahjongs.Add(Lmahjongs[0]);
+                Lmahjongs.Remove(Lmahjongs[0]);
+                ShowM();
+                turning = false;
+                Button button = game.transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+                button.gameObject.SetActive(false); ;
+            }
+        }
+        GameObject[] maj = new GameObject[50];
+        maj[num2] = Instantiate(Tmahjongs[num2].prefab);
+        maj[num2].transform.Rotate(0, 180, 0);
+        maj[num2].transform.position = new Vector3(-0.0518f + (float)(0.02 * num2), 0.7554f, -0.07f);
+        num2++;
+
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        if (player.turned)
+        {
+            GetM();
+            turning = true;
+        }
+
     }
+    void GetM()
+    {
+
+
+
+        for (int i = 0; i <game.GetComponent<GameManager>().Rmahjongs.Length; i++)
+        {
+            if (!game.GetComponent<GameManager>().Rmahjongs[i].used)
+            {
+                Mahjong mahjong;
+                mahjong = game.GetComponent<GameManager>().Rmahjongs[i];
+                game.GetComponent<GameManager>().Rmahjongs[i].used = true;
+                Lmahjongs.Add(mahjong);
+                break;
+            }
+
+        }
+
+        Button button = game.transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+        button.gameObject.SetActive(true);
+        buttons[buttons.Length - 1] = button;
+        buttons[buttons.Length - 1].image.sprite = Lmahjongs[0].sprites;
+        player.turned = false;
+
+
+
+    }
+
+
+
+    public void ShowM()
+    {
+        for (int i = 0; i < buttons.Length - 1; i++)
+        {
+            Button button = game.GetComponent<Transform>().GetChild(i).GetComponent<Button>();
+            buttons[i] = button;
+            buttons[i].image.sprite = pmahjongs[i].sprites;
+        }
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

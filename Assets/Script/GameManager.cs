@@ -43,8 +43,9 @@ public class Pedigree
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject pgroup;
     public Mahjong[] mahjongs = new Mahjong[136];
-    Mahjong[] Rmahjongs = new Mahjong[136];
+   public Mahjong[] Rmahjongs = new Mahjong[136];
     public Mahjong[] pmahjongs = new Mahjong[13];
     public Button[] buttons = new Button[14];
     public Sprite[] sprites = new Sprite[34];
@@ -52,22 +53,62 @@ public class GameManager : MonoBehaviour
     public Pedigree[] pedigrees = new Pedigree[48];
     string[] pedname = new string[4];
     public Player[] players = new Player[4];
-    public List<Mahjong> Lmahjongs = new List<Mahjong>();
-    public List<Mahjong> Tmahjongs = new List<Mahjong>();
-    public bool turning = false;
+  
     public bool aka = false;
     public GameObject[] mprefabs = new GameObject[34];
     public GameObject[] akaprefabs = new GameObject[3];
     int num2 = 0;
+    string[] winds = new string[4];
     private void Awake()
     {
 
-
-
+        PlayerSet();
+        Msetup();
+        SplitM();
 
 
     }
+    void PlayerSet()
+    {
+        winds[0] = "East";
+        winds[1] = "South";
+        winds[2] = "West";
+        winds[3] = "North";
+        int random = 0;
+        for(int i =0; i < players.Length; i++)
+        {
+            players[i] = pgroup.GetComponent<Transform>().GetChild(i).GetComponent<Player>();
+
+        }
     
+
+        for(int i = 0; i<players.Length; i++)
+        {
+            Player player;
+            random = Random.Range(0, 4);
+            player = players[i];
+            players[i] = players[random];
+            players[random]= player;
+
+
+        }
+       
+
+        for(int i = 0; i < players.Length; i++)
+        {
+            players[i].wind = winds[i];
+        }
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if(players[i].wind == "East")
+            {
+                players[i].turned = true;
+            }
+        }
+
+    }
+
     void Msetup()
     {
         pedname[0] = "Character";
@@ -152,149 +193,34 @@ public class GameManager : MonoBehaviour
             Rmahjongs[random] = mahjong;
         }
 
-        for (int i = 0; i < pmahjongs.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
-            Rmahjongs[i].used = true;
-            pmahjongs[i] = Rmahjongs[i];
+            for(int j = 0; j< players[i].GetComponent<PlayerCtrl>().pmahjongs.Length; j++)
+            {
+                Rmahjongs[players.Length * i + j].used = true;
+                players[i].GetComponent<PlayerCtrl>().pmahjongs[j] = Rmahjongs[players.Length * i + j];
+            }
+           
             
         }
 
     }
-    void ArrayM()
-    {
-        for(int i=0; i<pmahjongs.Length; i++)
-        {
-            int num = 1;
-            while (num + i < pmahjongs.Length)
-            {
-                if (pmahjongs[i].rank > pmahjongs[i + num].rank&& pmahjongs[i + num].num !=0)
-                {
-                    Mahjong mahjong;
-                    mahjong = pmahjongs[i];
-                    pmahjongs[i] = pmahjongs[i + num];
-                    pmahjongs[i + num] = mahjong;
-                }
-                else num++;
-            }
-
-            
-          
-        }
-        
    
-    }
-
-    void GetM()
-    {
-
-        if (GetComponent<Player>().turned)
-        {
-            for(int i=0; i < Rmahjongs.Length; i++)
-            {
-                if (!Rmahjongs[i].used)
-                {
-                    Mahjong mahjong;
-                    mahjong = Rmahjongs[i];
-                    Rmahjongs[i].used = true;
-                    Lmahjongs.Add(mahjong);
-                    break;
-                }
-              
-            }
-            
-            Button button = transform.GetChild(buttons.Length - 1).GetComponent<Button>();
-            button.gameObject.SetActive(true);
-            buttons[buttons.Length-1] = button;
-            buttons[buttons.Length - 1].image.sprite = Lmahjongs[0].sprites;
-            GetComponent<Player>().turned = false;
-            turning = true;
-
-        }
-    }
-    public void MThrow(int a)
-    {
-       
-       
-          
-        if (turning){
-            if (a != 13)
-            {
-                Tmahjongs.Add(pmahjongs[a]);
-                pmahjongs[a] = Lmahjongs[0];
-                Lmahjongs.Remove(Lmahjongs[0]);
-                ArrayM();
-                ShowM();
-
-
-                turning = false;
-                Button button = transform.GetChild(buttons.Length - 1).GetComponent<Button>();
-                button.gameObject.SetActive(false); ;
-               
-
-            }
-            else
-            {
-                Tmahjongs.Add(Lmahjongs[0]);
-                Lmahjongs.Remove(Lmahjongs[0]);
-                ShowM();
-                turning = false;
-                Button button = transform.GetChild(buttons.Length - 1).GetComponent<Button>();
-                button.gameObject.SetActive(false); ;
-            }
-        }
-        GameObject[] maj = new GameObject[50];
-        maj[num2] = Instantiate(Tmahjongs[num2].prefab);
-        maj[num2].transform.Rotate(0, 180, 0);
-        maj[num2].transform.position = new Vector3(-0.0518f + (float)(0.02 * num2), 0.7554f, -0.07f);
-        num2++;
-
-    }
-    void ShowM()
-    {
-        for (int i = 0; i < buttons.Length - 1; i++)
-        {
-            Button button = transform.GetChild(i).GetComponent<Button>();
-            buttons[i] = button;
-            buttons[i].image.sprite = pmahjongs[i].sprites;
-        }
-    }
-    /*int Countscore()
-    {
-
-    }
-    int Agari()
-    {
-        for(int i = 0; i<pmahjongs.Length; i++)
-        {
-
-        }
-        if(pmahjongs[0]
-    }*/
+   
     void Start()
     {
 
-        Msetup();
-        SplitM();
-        ArrayM();
+        
+        
+        
+       
 
-
-        players[0].wind = "East";
-
-
-
-
-        ShowM();
-
-
-        if (players[0].wind == "East")
-        {
-            players[0].turned = false;
-        }
+   
     }
         // Update is called once per frame
         void Update()
         {
-        GetM();
+       
         }
     }
 
