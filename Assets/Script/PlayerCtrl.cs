@@ -76,12 +76,15 @@ public class PlayerCtrl : MonoBehaviour
                 Button button = game.transform.GetChild(buttons.Length - 1).GetComponent<Button>();
                 button.gameObject.SetActive(false); ;
             }
+            GameObject[] maj = new GameObject[50];
+            maj[num2] = Instantiate(Tmahjongs[num2].prefab);
+            maj[num2].transform.localScale = Vector3.one;
+            maj[num2].transform.localRotation = Quaternion.identity;
+            maj[num2].transform.Rotate(0, 180, 0);
+            maj[num2].transform.position = new Vector3(-0.0518f + (float)(0.02 * num2), 0.7554f, -0.07f);
+            num2++;
         }
-        GameObject[] maj = new GameObject[50];
-        maj[num2] = Instantiate(Tmahjongs[num2].prefab);
-        maj[num2].transform.Rotate(0, 180, 0);
-        maj[num2].transform.position = new Vector3(-0.0518f + (float)(0.02 * num2), 0.7554f, -0.07f);
-        num2++;
+      
 
     }
     // Update is called once per frame

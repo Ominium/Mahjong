@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
+using System;
+using Photon.Pun;
+using Photon.Realtime;
 [System.Serializable]
 public class Mahjong
 {
@@ -47,7 +50,6 @@ public class GameManager : MonoBehaviour
     public Mahjong[] mahjongs = new Mahjong[136];
    public Mahjong[] Rmahjongs = new Mahjong[136];
     public Mahjong[] pmahjongs = new Mahjong[13];
-    public Button[] buttons = new Button[14];
     public Sprite[] sprites = new Sprite[34];
     public Sprite[] akasprites = new Sprite[3];
     public Pedigree[] pedigrees = new Pedigree[48];
@@ -59,9 +61,32 @@ public class GameManager : MonoBehaviour
     public GameObject[] akaprefabs = new GameObject[3];
     int num2 = 0;
     string[] winds = new string[4];
+    private static GameManager _instance = null;
+    public PhotonView photonView;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new GameManager();
+            }
+            return _instance;
+        }
+    }
+
     private void Awake()
     {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
+        
         PlayerSet();
         Msetup();
         SplitM();
@@ -85,7 +110,7 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i<players.Length; i++)
         {
             Player player;
-            random = Random.Range(0, 4);
+            random = UnityEngine.Random.Range(0, 4);
             player = players[i];
             players[i] = players[random];
             players[random]= player;
@@ -104,6 +129,7 @@ public class GameManager : MonoBehaviour
             if(players[i].wind == "East")
             {
                 players[i].turned = true;
+                players[i].oya = true;
             }
         }
 
@@ -186,7 +212,7 @@ public class GameManager : MonoBehaviour
         }
         for (int i = 0; i < Rmahjongs.Length; i++)
         {
-            random = Random.Range(0, 136);
+            random = UnityEngine.Random.Range(0, 136);
             Mahjong mahjong;
             mahjong = Rmahjongs[i];
             Rmahjongs[i] = Rmahjongs[random];
