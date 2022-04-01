@@ -2500,6 +2500,7 @@ MonoBehaviour:
   - {fileID: 8474433221000114953, guid: 73db1749b9e847849a0f2590793a5c73, type: 3}
   - {fileID: 4970289610015051972, guid: 74582703d985f7e40b4e390676d3e6e0, type: 3}
   photonView: {fileID: 0}
+  isConnect: 0
 --- !u!1 &336742056
 GameObject:
   m_ObjectHideFlags: 0
@@ -5276,7 +5277,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 500
-  field of view: 78.1
+  field of view: 78.8
   orthographic: 0
   orthographic size: 0.4
   m_Depth: -1

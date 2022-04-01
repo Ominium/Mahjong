@@ -15,8 +15,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Photon.Realtime;
+
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Photon.Pun.UtilityScripts

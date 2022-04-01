@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     string[] winds = new string[4];
     private static GameManager _instance = null;
     public PhotonView photonView;
+    public bool isConnect = false;
     public static GameManager Instance
     {
         get
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -92,6 +94,12 @@ public class GameManager : MonoBehaviour
         SplitM();
 
 
+    }
+    IEnumerator CreatePlayer()
+    {
+        yield return new WaitUntil(() => isConnect);
+        GameObject playertemp = PhotonNetwork.Instantiate("Player", Vector3.one, Quaternion.identity);
+         
     }
     void PlayerSet()
     {
