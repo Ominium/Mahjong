@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-      
+        score = 25000;
     }
 
     void Update()

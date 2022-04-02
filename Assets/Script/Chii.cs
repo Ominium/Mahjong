@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Chii : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
+    int chi;
     void Start()
     {
+       
         
     }
 
+
+    int ChiiCheak()
+    {
+        return chi;
+    }
     // Update is called once per frame
     void Update()
     {

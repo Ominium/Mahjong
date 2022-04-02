@@ -12,13 +12,40 @@ public class PlayerCtrl : MonoBehaviour
     public List<Mahjong> Tmahjongs = new List<Mahjong>();
     public Button[] buttons = new Button[14];
     public bool turning = false;
+    public Player nextplayer;
     int num2 = 0;
+    int Find()
+    {
+        int num = 0;
+      
+        for(int i=0; i < game.players.Length; i++)
+        {
+            num++;
+            if (player.Pname == game.players[i].Pname)
+            {
+
+              
+                break;
+            
+            }
+         
+        }
+        
+        if (num < game.players.Length)
+        {
+           
+            return num;
+        }
+        else return 0;
+        
+    }
     void Start()
     {
         player = gameObject.GetComponent<Player>();
         ArrayM();
         ShowM();
-        
+
+        nextplayer = game.players[Find()];
 
     }
    void ArrayM()
@@ -120,6 +147,7 @@ public class PlayerCtrl : MonoBehaviour
         buttons[buttons.Length - 1] = button;
         buttons[buttons.Length - 1].image.sprite = Lmahjongs[0].sprites;
         player.turned = false;
+        nextplayer.turned = true;
 
 
 
@@ -131,7 +159,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         for (int i = 0; i < buttons.Length - 1; i++)
         {
-            Button button = game.GetComponent<Transform>().GetChild(i).GetComponent<Button>();
+            Button button = game.transform.GetChild(i).GetComponent<Button>();
             buttons[i] = button;
             buttons[i].image.sprite = pmahjongs[i].sprites;
         }

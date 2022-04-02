@@ -3240,7 +3240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  Pname: 
+  Pname: sex
   cry: 0
   riched: 0
   turned: 0
@@ -3372,6 +3372,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   turning: 0
+  nextplayer: {fileID: 0}
 --- !u!1 &708255932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,7 +3725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  Pname: 
+  Pname: seex
   cry: 0
   riched: 0
   turned: 0
@@ -3856,6 +3857,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   turning: 0
+  nextplayer: {fileID: 0}
 --- !u!1 &936066517
 GameObject:
   m_ObjectHideFlags: 0
@@ -4269,7 +4271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  Pname: 
+  Pname: seeex
   cry: 0
   riched: 0
   turned: 0
@@ -4401,6 +4403,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   turning: 0
+  nextplayer: {fileID: 0}
 --- !u!1 &1243204707
 GameObject:
   m_ObjectHideFlags: 0
@@ -4975,7 +4978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  Pname: 
+  Pname: seeeex
   cry: 0
   riched: 0
   turned: 0
@@ -5093,6 +5096,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   turning: 0
+  nextplayer: {fileID: 0}
 --- !u!1 &1636951160
 GameObject:
   m_ObjectHideFlags: 0
