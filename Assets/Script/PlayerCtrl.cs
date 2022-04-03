@@ -14,7 +14,8 @@ public class PlayerCtrl : MonoBehaviour
     public bool turning = false;
     public Player nextplayer;
     int num2 = 0;
-    int Find()
+    public Camera camera;
+    int Find(int a)
     {
         int num = 0;
       
@@ -31,10 +32,10 @@ public class PlayerCtrl : MonoBehaviour
          
         }
         
-        if (num < game.players.Length)
+        if (num-a < game.players.Length)
         {
            
-            return num;
+            return num-a;
         }
         else return 0;
         
@@ -44,8 +45,9 @@ public class PlayerCtrl : MonoBehaviour
         player = gameObject.GetComponent<Player>();
         ArrayM();
         ShowM();
-
-        nextplayer = game.players[Find()];
+        camera = GameObject.Find("Camera").transform.GetChild(Find(1)).GetComponent<Camera>();
+        nextplayer = game.players[Find(0)];
+        camera.enabled = true;
 
     }
    void ArrayM()
