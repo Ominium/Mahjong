@@ -55,7 +55,8 @@ public class GameManager : MonoBehaviour
     public Pedigree[] pedigrees = new Pedigree[48];
     string[] pedname = new string[4];
     public Player[] players = new Player[4];
-  
+    public Mahjong[] kingmah = new Mahjong[14];
+    public Sprite back;
     public bool aka = false;
     public GameObject[] mprefabs = new GameObject[34];
     public GameObject[] akaprefabs = new GameObject[3];
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance = null;
     public PhotonView photonView;
     public bool isConnect = false;
+    public Image[] images = new Image[5];
     public static GameManager Instance
     {
         get
@@ -237,9 +239,23 @@ public class GameManager : MonoBehaviour
            
             
         }
-
+        for(int i= 1; i < kingmah.Length+1; i++)
+        {
+            Rmahjongs[Rmahjongs.Length - i].used = true;
+            kingmah[i-1] = Rmahjongs[Rmahjongs.Length - i];
+            
+            
+        }
+        
+        for(int i=0; i < images.Length; i++)
+        {
+            images[i] = GameObject.Find("DoraPan").transform.GetChild(i).GetComponent<Image>();
+            images[i].sprite = back;
+        }
+        images[0].sprite = kingmah[0].sprites;
+        
     }
-   
+    
    
     void Start()
     {

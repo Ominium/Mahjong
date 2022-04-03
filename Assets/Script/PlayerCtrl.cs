@@ -91,7 +91,7 @@ public class PlayerCtrl : MonoBehaviour
 
 
                 turning = false;
-                Button button = game.transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+                Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
                 button.gameObject.SetActive(false); ;
 
 
@@ -102,7 +102,7 @@ public class PlayerCtrl : MonoBehaviour
                 Lmahjongs.Remove(Lmahjongs[0]);
                 ShowM();
                 turning = false;
-                Button button = game.transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+                Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
                 button.gameObject.SetActive(false); ;
             }
             GameObject[] maj = new GameObject[50];
@@ -144,7 +144,7 @@ public class PlayerCtrl : MonoBehaviour
 
         }
 
-        Button button = game.transform.GetChild(buttons.Length - 1).GetComponent<Button>();
+        Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
         button.gameObject.SetActive(true);
         buttons[buttons.Length - 1] = button;
         buttons[buttons.Length - 1].image.sprite = Lmahjongs[0].sprites;
@@ -161,7 +161,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         for (int i = 0; i < buttons.Length - 1; i++)
         {
-            Button button = game.transform.GetChild(i).GetComponent<Button>();
+            Button button = game.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<Button>();
             buttons[i] = button;
             buttons[i].image.sprite = pmahjongs[i].sprites;
         }
