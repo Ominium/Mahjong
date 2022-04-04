@@ -14,7 +14,7 @@ public class Mahjong
     public int num;
     public Sprite sprites;
     public bool used = false;
-    public GameObject prefab;  
+    public GameObject prefab;
     public Mahjong(int a, string b, int c, Sprite sprite, bool d, GameObject e)
     {
         rank = a;
@@ -22,7 +22,7 @@ public class Mahjong
         num = c;
         sprites = sprite;
         used = d;
-        prefab = e; 
+        prefab = e;
     }
 }
 [System.Serializable]
@@ -32,23 +32,32 @@ public class Pedigree
     public int Pcryscore;
     public string Pname;
     public bool Pcry;
+    public bool Yackman;
     public Pedigree(int a, int b, string c, bool d)
-    {   Pscore = a;
+    {
+        Pscore = a;
         Pcryscore = b;
         Pname = c;
         Pcry = d;
     }
-    
-    
+
+
 }
 
 
 
 public class GameManager : MonoBehaviour
 {
+    public enum GameState
+    {
+        Ready,
+        Play,
+        RoundEnd,
+        GameEnd,
+    }
     public GameObject pgroup;
     public Mahjong[] mahjongs = new Mahjong[136];
-   public Mahjong[] Rmahjongs = new Mahjong[136];
+    public Mahjong[] Rmahjongs = new Mahjong[136];
     public Mahjong[] pmahjongs = new Mahjong[13];
     public Sprite[] sprites = new Sprite[34];
     public Sprite[] akasprites = new Sprite[3];
@@ -66,6 +75,10 @@ public class GameManager : MonoBehaviour
     public PhotonView photonView;
     public bool isConnect = false;
     public Image[] images = new Image[5];
+    public static GameState Gstate;
+    public static int Gameturn = 0;
+    public float Rtime = 0.0f;
+
     public static GameManager Instance
     {
         get
@@ -77,9 +90,46 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
+    void ReadyGame()
+    {
 
+    }
+    void PlayGame()
+    {
+
+    }
+    void RoundEnd()
+    {
+
+    }
+    void GameEnd()
+    {
+
+    }
+    void GamePlayState(GameState state) // 게임 상태 
+    {
+
+        switch (state)
+        {
+
+
+            case GameState.Ready:
+                ReadyGame();
+                break;
+            case GameState.Play:
+                PlayGame();
+                break;
+            case GameState.RoundEnd:
+                RoundEnd();
+                break;
+            case GameState.GameEnd:
+                GameEnd();
+                break;
+        }
+    }
     private void Awake()
     {
+        Gstate = GameState.Ready;
         if (_instance == null)
         {
             _instance = this;
@@ -90,7 +140,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        
         PlayerSet();
         Msetup();
         SplitM();
@@ -101,7 +150,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => isConnect);
         GameObject playertemp = PhotonNetwork.Instantiate("Player", Vector3.one, Quaternion.identity);
-         
+
     }
     void PlayerSet()
     {
@@ -110,36 +159,36 @@ public class GameManager : MonoBehaviour
         winds[2] = "West";
         winds[3] = "North";
         int random = 0;
-        for(int i =0; i < players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             players[i] = pgroup.GetComponent<Transform>().GetChild(i).GetComponent<Player>();
 
         }
-    
 
-        for(int i = 0; i<players.Length; i++)
+
+        for (int i = 0; i < players.Length; i++)
         {
             Player player;
             random = UnityEngine.Random.Range(0, 4);
             player = players[i];
             players[i] = players[random];
-            players[random]= player;
+            players[random] = player;
 
 
         }
-       
 
-        for(int i = 0; i < players.Length; i++)
+
+        for (int i = 0; i < players.Length; i++)
         {
             players[i].wind = winds[i];
         }
 
         for (int i = 0; i < players.Length; i++)
         {
-            if(players[i].wind == "East")
+            if (players[i].wind == "East")
             {
                 players[i].turned = true;
-                players[i].oya = true;
+                players[i].Oya = true;
             }
         }
 
@@ -210,8 +259,8 @@ public class GameManager : MonoBehaviour
             }
 
         }
-       
-       
+
+
     }
     void SplitM()
     {
@@ -231,46 +280,57 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            for(int j = 0; j< players[i].GetComponent<PlayerCtrl>().pmahjongs.Length; j++)
+            for (int j = 0; j < players[i].GetComponent<PlayerCtrl>().pmahjongs.Length; j++)
             {
                 Rmahjongs[players.Length * i + j].used = true;
                 players[i].GetComponent<PlayerCtrl>().pmahjongs[j] = Rmahjongs[players.Length * i + j];
             }
-           
-            
+
+
         }
-        for(int i= 1; i < kingmah.Length+1; i++)
+        for (int i = 1; i < kingmah.Length + 1; i++)
         {
             Rmahjongs[Rmahjongs.Length - i].used = true;
-            kingmah[i-1] = Rmahjongs[Rmahjongs.Length - i];
-            
-            
+            kingmah[i - 1] = Rmahjongs[Rmahjongs.Length - i];
+
+
         }
-        
-        for(int i=0; i < images.Length; i++)
+
+        Kmsignal(0);
+
+    }
+
+    public void Kmsignal(int a)
+    {
+        for (int i = 0; i < images.Length; i++)
         {
             images[i] = GameObject.Find("DoraPan").transform.GetChild(i).GetComponent<Image>();
             images[i].sprite = back;
         }
-        images[0].sprite = kingmah[0].sprites;
-        
+        for (int i = 0; i < a + 1; i++)
+        {
+            images[i].sprite = kingmah[i].sprites;
+        }
+
     }
-    
-   
     void Start()
     {
 
-        
-        
-        
-       
 
-   
+
+
+
+
+
     }
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
+    {
+        GamePlayState(Gstate);
+        if((players[0].score < 0)|| (players[1].score< 0)|| (players[2].score < 0)|| (players[3].score < 0)|| Gameturn ==8)
         {
-       
+            Gstate = GameState.GameEnd;
         }
     }
+}
 

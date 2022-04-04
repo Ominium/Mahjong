@@ -172,6 +172,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &141991813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 141991814}
+  m_Layer: 0
+  m_Name: Mspown1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &141991814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141991813}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0518, y: 0.7554, z: -0.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 331705470}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157706820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,186 +2420,232 @@ MonoBehaviour:
     Pcryscore: 0
     Pname: "\uB9AC\uCE58"
     Pcry: 0
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 0
     Pname: "\uD551\uD6C4"
     Pcry: 0
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 0
     Pname: "\uC774\uD398\uCF54"
     Pcry: 0
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 1
     Pname: "\uC5ED\uD328"
     Pcry: 1
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 1
     Pname: "\uD48D\uD328"
     Pcry: 1
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 1
     Pname: "\uD0D5\uC57C\uC624"
     Pcry: 1
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 1
     Pname: "\uC601\uC0C1\uAC1C\uD654"
     Pcry: 1
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 1
     Pname: "\uCC3D\uAE61"
     Pcry: 1
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 0
     Pname: "\uBA58\uC820\uCBD4\uBAA8"
     Pcry: 0
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 1
     Pname: "\uD574\uC800\uB85C\uC6D4"
     Pcry: 1
+    Yackman: 0
   - Pscore: 1
     Pcryscore: 1
     Pname: "\uD574\uC800\uB85C\uC5B4"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 1
     Pname: "\uC0BC\uC0C9\uB3D9\uC21C"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 1
     Pname: "\uC77C\uAE30\uD1B5\uAD00"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 1
     Pname: "\uCC64\uD0C0"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 0
     Pname: "\uCE58\uB610\uC774\uC988"
     Pcry: 0
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 2
     Pname: "\uB610\uC774\uB610\uC774"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 2
     Pname: "\uC0B0\uC548\uCEE4"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 2
     Pname: "\uC0B0\uAE61\uC988"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 2
     Pname: "\uC0BC\uC0C9\uB3D9\uAC01"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 0
     Pname: "\uB354\uBE14 \uB9AC\uCE58"
     Pcry: 0
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 2
     Pname: "\uC18C\uC0BC\uC6D0"
     Pcry: 1
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 0
     Pname: "\uB7C9\uD398\uCF54"
     Pcry: 0
+    Yackman: 0
   - Pscore: 2
     Pcryscore: 2
     Pname: "\uD63C\uB178\uB450"
     Pcry: 1
+    Yackman: 0
   - Pscore: 3
     Pcryscore: 2
     Pname: "\uC900\uCC64\uD0C0"
     Pcry: 1
+    Yackman: 0
   - Pscore: 3
     Pcryscore: 2
     Pname: "\uD63C\uC77C\uC0C9"
     Pcry: 1
+    Yackman: 0
   - Pscore: 6
     Pcryscore: 5
     Pname: "\uCCAD\uC77C\uC0C9"
     Pcry: 1
+    Yackman: 0
   - Pscore: 13
     Pcryscore: 0
     Pname: "\uAD6D\uC0AC\uBB34\uC30D"
     Pcry: 0
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 0
     Pname: "\uC2A4\uC548\uCEE4"
     Pcry: 0
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 0
     Pname: "\uAD6C\uB828\uBCF4\uB4F1"
     Pcry: 0
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 13
     Pname: "\uB300\uC0BC\uC6D0"
     Pcry: 1
+    Yackman: 1
   - Pscore: 26
     Pcryscore: 26
     Pname: "\uB300\uC0AC\uD76C"
     Pcry: 1
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 13
     Pname: "\uC18C\uC0AC\uD76C"
     Pcry: 1
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 13
     Pname: "\uC790\uC77C\uC0C9"
     Pcry: 1
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 13
     Pname: "\uB179\uC77C\uC0C9"
     Pcry: 1
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 13
     Pname: "\uCCAD\uB178\uB450"
     Pcry: 1
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 13
     Pname: "\uC2A4\uAE61\uC988"
     Pcry: 1
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 0
     Pname: "\uCC9C\uD654"
     Pcry: 0
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 0
     Pname: "\uC9C0\uD654"
     Pcry: 0
+    Yackman: 1
   - Pscore: 13
     Pcryscore: 13
     Pname: "\uCE74\uC870\uC5D0\uC5ED\uB9CC"
     Pcry: 1
+    Yackman: 1
   - Pscore: 5
     Pcryscore: 5
     Pname: "\uC720\uAD6D\uB9CC\uAD00"
     Pcry: 1
+    Yackman: 1
   - Pscore: 1
     Pcryscore: 1
     Pname: "\uB3C4\uB77C"
     Pcry: 1
+    Yackman: 0
   - Pscore: 0
     Pcryscore: 0
     Pname: 
     Pcry: 0
+    Yackman: 0
   - Pscore: 0
     Pcryscore: 0
     Pname: 
     Pcry: 0
+    Yackman: 0
   - Pscore: 0
     Pcryscore: 0
     Pname: 
     Pcry: 0
+    Yackman: 0
   - Pscore: 0
     Pcryscore: 0
     Pname: 
     Pcry: 0
+    Yackman: 0
   - Pscore: 0
     Pcryscore: 0
     Pname: 
     Pcry: 0
+    Yackman: 0
   players:
   - {fileID: 0}
   - {fileID: 0}
@@ -2709,6 +2785,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  Rtime: 0
 --- !u!1 &323203753
 GameObject:
   m_ObjectHideFlags: 0
@@ -2785,6 +2862,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323203753}
   m_CullTransparentMesh: 1
+--- !u!1 &331705469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331705470}
+  m_Layer: 0
+  m_Name: trs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &331705470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331705469}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 141991814}
+  - {fileID: 1094488482}
+  - {fileID: 854160178}
+  - {fileID: 354319490}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &336742056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2972,8 +3083,38 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1959179997}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 65, y: 270, z: 0}
+--- !u!1 &354319489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 354319490}
+  m_Layer: 0
+  m_Name: Mspown4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &354319490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354319489}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.072, y: 0.7554, z: 0.046}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 331705470}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &369088474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3491,7 +3632,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1959179997}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 65, y: 180, z: 0}
 --- !u!1 &612500075
 GameObject:
@@ -3527,7 +3668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.5999985, y: 11.5}
+  m_AnchoredPosition: {x: -0.6000061, y: 11.5}
   m_SizeDelta: {x: -70, y: 77}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &612500077
@@ -3600,12 +3741,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   Pname: sex
-  cry: 0
-  riched: 0
   turned: 0
   wind: 
-  oya: 0
-  tenpai: 0
 --- !u!4 &691110782
 Transform:
   m_ObjectHideFlags: 0
@@ -3627,12 +3764,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691110780}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da637ab6af09f7a4b9e28fc8121d3613, type: 3}
+  m_Script: {fileID: 11500000, guid: da822fc02521ab947a4e8a354c7e0d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 233873770}
+  game: {fileID: 0}
   player: {fileID: 0}
   pmahjongs:
   - rank: 0
@@ -3730,8 +3867,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  playerped: []
   turning: 0
   nextplayer: {fileID: 0}
+  num2: 0
+  trs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   camera: {fileID: 0}
 --- !u!1 &708255932
 GameObject:
@@ -3920,7 +4064,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1959179997}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 65, y: 90, z: 0}
 --- !u!1 &747501261
 GameObject:
@@ -4236,12 +4380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   Pname: seex
-  cry: 0
-  riched: 0
   turned: 0
   wind: 
-  oya: 0
-  tenpai: 0
 --- !u!4 &833592037
 Transform:
   m_ObjectHideFlags: 0
@@ -4263,12 +4403,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833592035}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da637ab6af09f7a4b9e28fc8121d3613, type: 3}
+  m_Script: {fileID: 11500000, guid: da822fc02521ab947a4e8a354c7e0d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 233873770}
+  game: {fileID: 0}
   player: {fileID: 0}
   pmahjongs:
   - rank: 0
@@ -4366,9 +4506,46 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  playerped: []
   turning: 0
   nextplayer: {fileID: 0}
+  num2: 0
+  trs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   camera: {fileID: 0}
+--- !u!1 &854160177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 854160178}
+  m_Layer: 0
+  m_Name: Mspown3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &854160178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854160177}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.038, y: 0.7554, z: 0.066}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 331705470}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &936066517
 GameObject:
   m_ObjectHideFlags: 0
@@ -4783,12 +4960,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   Pname: seeex
-  cry: 0
-  riched: 0
   turned: 0
   wind: 
-  oya: 0
-  tenpai: 0
 --- !u!4 &1047481718
 Transform:
   m_ObjectHideFlags: 0
@@ -4810,12 +4983,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047481716}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da637ab6af09f7a4b9e28fc8121d3613, type: 3}
+  m_Script: {fileID: 11500000, guid: da822fc02521ab947a4e8a354c7e0d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 233873770}
+  game: {fileID: 0}
   player: {fileID: 0}
   pmahjongs:
   - rank: 0
@@ -4913,9 +5086,46 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  playerped: []
   turning: 0
   nextplayer: {fileID: 0}
+  num2: 0
+  trs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   camera: {fileID: 0}
+--- !u!1 &1094488481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1094488482}
+  m_Layer: 0
+  m_Name: Mspown2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1094488482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094488481}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0.067, y: 0.7554, z: -0.053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 331705470}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!1 &1243204707
 GameObject:
   m_ObjectHideFlags: 0
@@ -5715,12 +5925,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   Pname: seeeex
-  cry: 0
-  riched: 0
   turned: 0
   wind: 
-  oya: 0
-  tenpai: 0
 --- !u!114 &1570064792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5831,8 +6037,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  playerped: []
   turning: 0
   nextplayer: {fileID: 0}
+  num2: 0
+  trs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   camera: {fileID: 0}
 --- !u!1 &1636951160
 GameObject:
@@ -6000,7 +6213,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863904625}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -6324,9 +6537,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1863904628}
+  - {fileID: 336742059}
   - {fileID: 557119514}
   - {fileID: 708255935}
-  - {fileID: 336742059}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

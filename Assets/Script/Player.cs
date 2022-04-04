@@ -7,12 +7,37 @@ public class Player : MonoBehaviour
 {
     public int score = 0;
     public string Pname = null;
-    public bool cry = false;
-    public bool riched = false;
+    private bool cry = false;
+    private bool riched = false;
     public bool turned = false;
     public string wind = null;
-    public bool oya = false;
-    public bool tenpai = false;
+    private bool oya = false;
+    private bool tenpai = false;
+    public bool Cry
+    {
+        get { return cry; }
+        set { cry = value; }
+    }
+    public bool Rich
+    {
+        get { return riched; }
+        set { riched = value; }
+    }
+   
+    public bool Oya
+    {
+        get { return oya; }
+        set { oya = value; }
+
+    }
+
+    public bool Tenpaing
+    {
+        get { return tenpai; }
+        set { tenpai = value; }
+    }
+    
+  
     public Player(int a, string b, string c, bool d)
     {
         score = a;
@@ -23,7 +48,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        score = 25000;
+      
     }
 
     void Update()

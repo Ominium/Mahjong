@@ -4,11 +4,50 @@ using UnityEngine;
 
 public class Tenpai : MonoBehaviour
 {
-    public PlayerCtrl playerCtrl;
     
-    int Pan;
-    int busu;
-    int Dora(Mahjong mahjong)
+    public PlayerCtrl playerCtrl;
+    GameManager gameManager;
+    int Pan =0;
+    int busu = 20;
+    protected float oyascore = 1.0f;
+    public static int ryunzzang = 0;
+    int[] nums = new int[14];
+    string[] patts = new string[14];
+
+    void ped(PlayerCtrl playerCtrl)
+    {
+        
+        for(int i=0; i < playerCtrl.pmahjongs.Length; i++)
+        {
+            nums[i] = playerCtrl.pmahjongs[i].num;
+            patts[i] = playerCtrl.pmahjongs[i].patt;
+        }
+        if (playerCtrl.turning)
+        {
+            nums[13] = playerCtrl.Lmahjongs[0].num;
+            patts[13] = playerCtrl.Lmahjongs[0].patt;
+        }
+        else
+        {
+            nums[13] = 0;
+            patts[13] = null;
+        }
+        
+    }
+    void Pcheak()
+    {
+        
+        ped(playerCtrl);
+        for (int i = 0; i < patts.Length; i++)
+        {
+            if (patts[i] == patts[i+1])
+            {
+
+            }
+    
+        }
+    }
+    Pedigree Dora(Mahjong mahjong)
     {
         for(int i=0; i < playerCtrl.pmahjongs.Length; i++)
         {
@@ -16,70 +55,240 @@ public class Tenpai : MonoBehaviour
             {
                 if(playerCtrl.pmahjongs[i].num == mahjong.num + 1)
                 {
-                    return Pan++;
+                    
+                   
+                    return gameManager.pedigrees[40];
                 }
             }
         }
-        return 0;
+        return null;
+        
+    }
+    void Doraped()
+    {
+        for (int i = 0; i < Kkang.Kcount; i++)
+        {
+
+            playerCtrl.playerped.Add(Dora(playerCtrl.game.kingmah[i]));
+        }
+    }
+    
+    int Pancheak(List<Pedigree> pedigrees)
+    {
+        int Score = 0;
+        if(playerCtrl.player.Cry)
+        {
+            for (int i = 0; i < pedigrees.Count; i++)
+            {
+                Score += pedigrees[i].Pcryscore;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < pedigrees.Count; i++)
+            {
+                Score += pedigrees[i].Pscore;
+            }
+        }
+        if(Score > 13)
+        {
+            
+           
+        }
+        return  Score;
         
     }
     public int RonScore()
+
     {
+        Doraped();
+        Pancheak(playerCtrl.playerped);
+
+
         switch (Pan)
         {
             case 1:
                 if (busu < 30)
                 {
-                    return 1000;
+                    return (int)(1000 * oyascore) + ryunzzang*300;
                 }
                 else if(busu < 40)
                 {
-                    return 1500;
+                    return (int)(1300* oyascore) + ryunzzang * 300;
                 }
                 else if(busu < 50)
                 {
-                    return 2000;
+                    return (int)(1500* oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 60)
+                {
+                    return (int)(1600 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 70)
+                {
+                    return (int)(2000 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 80)
+                {
+                    return (int)(2300 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 90)
+                {
+                    return (int)(2600 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 100)
+                {
+                    return (int)(2900 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 110)
+                {
+                    return (int)(3200 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu > 110)
+                {
+                    return (int)(3600 * oyascore) + ryunzzang * 300;
                 }
                 break;
             case 2:
+                if (busu < 25)
+                {
+                    return (int)(1300 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 30)
+                {
+                    return (int)(1600 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 40)
+                {
+                    return (int)(2000 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 50)
+                {
+                    return (int)(2600 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 60)
+                {
+                    return (int)(3200 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 70)
+                {
+                    return (int)(3900 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 80)
+                {
+                    return (int)(4500 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 90)
+                {
+                    return (int)(5200 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 100)
+                {
+                    return (int)(5800 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 110)
+                {
+                    return (int)(6400 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu > 110)
+                {
+                    return (int)(7100 * oyascore) + ryunzzang * 300;
+                }
                 break;
             case 3:
+                if (busu < 25)
+                {
+                    return (int)(2600 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 30)
+                {
+                    return (int)(3200 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 40)
+                {
+                    return (int)(3900 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 50)
+                {
+                    return (int)(5200 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 60)
+                {
+                    return (int)(6400 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 70)
+                {
+                    return (int)(7700 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu >= 70)
+                {
+                    return (int)(8000 * oyascore) + ryunzzang * 300;
+                }
+               
                 break;
             case 4:
-                break;
+                if (busu < 25)
+                {
+                    return (int)(5200 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 30)
+                {
+                    return (int)(6400 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu < 40)
+                {
+                    return (int)(7700 * oyascore) + ryunzzang * 300;
+                }
+                else if (busu >= 40)
+                {
+                    return (int)(8000 * oyascore) + ryunzzang * 300;
+                }
+              
+                 break;
             case 5:
-                break;
+                return (int)(8000 * oyascore) + ryunzzang * 300;
+               
             case 6:
-                break;
+                return (int)(12000 * oyascore) + ryunzzang * 300;
+                
             case 7:
-                break;
+                return (int)(12000 * oyascore) + ryunzzang * 300;
+                
             case 8:
-                break;
+                return (int)(16000 * oyascore) + ryunzzang * 300;
+              
             case 9:
-                break;
+                return (int)(16000 * oyascore) + ryunzzang * 300;
+                
             case 10:
-                break;
+                return (int)(24000 * oyascore) + ryunzzang * 300;
+               
             case 11:
-                break;
+                return (int)(24000 * oyascore) + ryunzzang * 300;
             case 12:
-                break;
+                return (int)(24000 * oyascore) + ryunzzang * 300;
             case 13:
-                break;
+                return (int)(32000 * oyascore) + ryunzzang * 300;
             case 26:
-                break;
+                return (int)(64000 * oyascore) + ryunzzang * 300;
             case 39:
-                break;
+                return (int)(96000 * oyascore) + ryunzzang * 300;
             case 52:
-                break;
+                return (int)(128000 * oyascore) + ryunzzang * 300;
             case 65:
-                break;
+                return (int)(160000 * oyascore) + ryunzzang * 300;
             case 78:
-                break;
+                return (int)(192000 * oyascore) + ryunzzang * 300;
             case 91:
-                break;
+                return (int)(224000 * oyascore) + ryunzzang * 300;
 
             default:
-                
+                if (Pan > 13 && Pan < 26)
+                {
+                    return (int)(32000 * oyascore) + ryunzzang * 300;
+                }
+               
+              
                 break;
 
                
@@ -89,10 +298,15 @@ public class Tenpai : MonoBehaviour
         return 0;
 
     }
+
     private void Start()
     {
-           
-
+        gameManager = GameObject.Find("Canvas").GetComponent<GameManager>();
+        if (playerCtrl.player.Oya)
+        {
+            oyascore = 1.5f;
+        }
+        ped(playerCtrl);
     }
 
     private void Update()

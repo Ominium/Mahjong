@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Kkang : MonoBehaviour
 {
+    public static int Kcount = 0;
+
     // Start is called before the first frame update
     void Start()
     {

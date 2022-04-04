@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class AI : Player
 {
+   
+   
+   
     public AI(int a, string b, string c,bool d) : base(a, b, c,d)
     {
     }
-
-    // Start is called before the first frame update
+   
     void Start()
     {
         

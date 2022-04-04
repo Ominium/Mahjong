@@ -11,46 +11,57 @@ public class PlayerCtrl : MonoBehaviour
     public List<Mahjong> Lmahjongs = new List<Mahjong>();
     public List<Mahjong> Tmahjongs = new List<Mahjong>();
     public Button[] buttons = new Button[14];
+    public List<Pedigree> playerped = new List<Pedigree>();
     public bool turning = false;
     public Player nextplayer;
-    int num2 = 0;
+    public int num2 = 0;
+    public Transform[] trs = new Transform[4];
+   
     public Camera camera;
-    int Find(int a)
+
+
+   public int Find(int a)
     {
         int num = 0;
-      
-        for(int i=0; i < game.players.Length; i++)
+
+        for (int i = 0; i < game.players.Length; i++)
         {
             num++;
             if (player.Pname == game.players[i].Pname)
             {
 
-              
+
                 break;
-            
+
             }
-         
+
         }
-        
-        if (num-a < game.players.Length)
+
+        if (num - a < game.players.Length)
         {
-           
-            return num-a;
+
+            return num -a;
         }
         else return 0;
-        
+
     }
     void Start()
     {
+        game = GameObject.Find("Canvas").GetComponent<GameManager>();
         player = gameObject.GetComponent<Player>();
         ArrayM();
         ShowM();
         camera = GameObject.Find("Camera").transform.GetChild(Find(1)).GetComponent<Camera>();
         nextplayer = game.players[Find(0)];
         camera.enabled = true;
+        for(int i=0; i<trs.Length; i++)
+        {
+            trs[i] = GameObject.Find("trs").GetComponent<Transform>().GetChild(i);
+        }
+        
 
     }
-   void ArrayM()
+    public void ArrayM()
     {
         for (int i = 0; i < pmahjongs.Length; i++)
         {
@@ -83,6 +94,7 @@ public class PlayerCtrl : MonoBehaviour
         {
             if (a != 13)
             {
+                turning = false;
                 Tmahjongs.Add(pmahjongs[a]);
                 pmahjongs[a] = Lmahjongs[0];
                 Lmahjongs.Remove(Lmahjongs[0]);
@@ -90,7 +102,7 @@ public class PlayerCtrl : MonoBehaviour
                 ShowM();
 
 
-                turning = false;
+               
                 Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
                 button.gameObject.SetActive(false); ;
 
@@ -98,10 +110,11 @@ public class PlayerCtrl : MonoBehaviour
             }
             else
             {
+                turning = false;
                 Tmahjongs.Add(Lmahjongs[0]);
                 Lmahjongs.Remove(Lmahjongs[0]);
                 ShowM();
-                turning = false;
+               
                 Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
                 button.gameObject.SetActive(false); ;
             }
@@ -109,12 +122,35 @@ public class PlayerCtrl : MonoBehaviour
             maj[num2] = Instantiate(Tmahjongs[num2].prefab);
             maj[num2].transform.localScale = Vector3.one;
             maj[num2].transform.localRotation = Quaternion.identity;
-            maj[num2].transform.Rotate(0, 180, 0);
-            maj[num2].transform.position = new Vector3(-0.0518f + (float)(0.02 * num2), 0.7554f, -0.07f);
-            num2++;
-        }
-      
+          
+            switch (Find(1))
+            {
+                case 0:
+                    maj[num2].transform.position = new Vector3(trs[Find(1)].position.x + (float)(0.02 * num2), trs[Find(1)].position.y, trs[Find(1)].position.z);
+                    maj[num2].transform.rotation = Quaternion.Euler(0, 180, 0);
+                    break;
+                case 1:
+                    maj[num2].transform.position = new Vector3(trs[Find(1)].position.x, trs[Find(1)].position.y, trs[Find(1)].position.z + (float)(0.02 * num2));                 
+                    maj[num2].transform.rotation = Quaternion.Euler(0, 90, 0);
+                    break;
+                case 2:
+                    maj[num2].transform.position = new Vector3(trs[Find(1)].position.x - (float)(0.02 * num2), trs[Find(1)].position.y, trs[Find(1)].position.z);
+                    break;
+                case 3:
+                    maj[num2].transform.position = new Vector3(trs[Find(1)].position.x, trs[Find(1)].position.y, trs[Find(1)].position.z - (float)(0.02 * num2));                  
+                    maj[num2].transform.rotation = Quaternion.Euler(0, 270, 0);
+                    break;
 
+
+
+            }
+            num2++;
+            player.turned = false;
+            nextplayer.turned = true;
+
+        }
+
+        
     }
     // Update is called once per frame
     void Update()
@@ -122,16 +158,17 @@ public class PlayerCtrl : MonoBehaviour
         if (player.turned)
         {
             GetM();
+            Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
+            button.gameObject.SetActive(true);
+            buttons[buttons.Length - 1] = button;
+            buttons[buttons.Length - 1].image.sprite = Lmahjongs[0].sprites;
             turning = true;
         }
 
     }
-    void GetM()
+   public void GetM()
     {
-
-
-
-        for (int i = 0; i <game.GetComponent<GameManager>().Rmahjongs.Length; i++)
+        for (int i = 0; i < game.GetComponent<GameManager>().Rmahjongs.Length; i++)
         {
             if (!game.GetComponent<GameManager>().Rmahjongs[i].used)
             {
@@ -141,22 +178,11 @@ public class PlayerCtrl : MonoBehaviour
                 Lmahjongs.Add(mahjong);
                 break;
             }
-
         }
-
-        Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
-        button.gameObject.SetActive(true);
-        buttons[buttons.Length - 1] = button;
-        buttons[buttons.Length - 1].image.sprite = Lmahjongs[0].sprites;
+      
         player.turned = false;
-        nextplayer.turned = true;
-
-
-
+     
     }
-
-
-
     public void ShowM()
     {
         for (int i = 0; i < buttons.Length - 1; i++)
@@ -166,35 +192,5 @@ public class PlayerCtrl : MonoBehaviour
             buttons[i].image.sprite = pmahjongs[i].sprites;
         }
     }
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
