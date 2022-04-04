@@ -9,7 +9,7 @@ using Photon.Realtime;
 [System.Serializable]
 public class Mahjong
 {
-    public int rank; //¼ø¹ø
+    public int rank; 
     public string patt;
     public int num;
     public Sprite sprites;
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i] = pgroup.GetComponent<Transform>().GetChild(i).GetComponent<Player>();
-
+            players[0].Pname = PhotonNetwork.NickName;
         }
 
 

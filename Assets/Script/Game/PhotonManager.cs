@@ -15,7 +15,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+
         PhotonNetwork.NickName = userId;
+        
 
     }
     public override void OnConnectedToMaster()
