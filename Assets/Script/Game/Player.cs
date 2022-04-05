@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Player : MonoBehaviour
 {
+    public static int startscore;
     public int score = 0;
     public string Pname = null;
     private bool cry = false;
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-      
+        score = startscore;
     }
 
     void Update()

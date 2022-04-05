@@ -16,10 +16,21 @@ public class PlayerCtrl : MonoBehaviour
     public Player nextplayer;
     public int num2 = 0;
     public Transform[] trs = new Transform[4];
-   
+    public bool AIcheak = false;
     public Camera camera;
+    public bool Oyas = false;
 
-
+   public IEnumerator FirstStart()
+    {
+        if (Oyas)
+        {
+            Oyas = false;
+            yield return new WaitForSeconds(2f);
+            player.turned = true;
+            
+        }
+       
+    }
    public int Find(int a)
     {
         int num = 0;
@@ -47,19 +58,36 @@ public class PlayerCtrl : MonoBehaviour
     }
     void Start()
     {
+        StartPl();
+        Camera();
+    }
+    public void StartPl()
+    {
         game = GameObject.Find("Canvas").GetComponent<GameManager>();
         player = gameObject.GetComponent<Player>();
         ArrayM();
-        ShowM();
-        camera = GameObject.Find("Camera").transform.GetChild(Find(1)).GetComponent<Camera>();
         nextplayer = game.players[Find(0)];
-        camera.enabled = true;
-        for(int i=0; i<trs.Length; i++)
+        num2 = 0;
+        for (int i = 0; i < trs.Length; i++)
         {
             trs[i] = GameObject.Find("trs").GetComponent<Transform>().GetChild(i);
         }
-        
+        Tmahjongs.Clear();
+        Lmahjongs.Clear();
 
+    }
+    public void Camera()
+    {
+        ShowM();
+        Camera[] cameras = new Camera[4];
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            cameras[i] = GameObject.Find("Camera").transform.GetChild(i).GetComponent<Camera>();
+            cameras[i].enabled = false;
+        }
+        camera = GameObject.Find("Camera").transform.GetChild(Find(1)).GetComponent<Camera>();
+
+        camera.enabled = true;
     }
     public void ArrayM()
     {
@@ -84,6 +112,39 @@ public class PlayerCtrl : MonoBehaviour
 
 
     }
+    public void Mthrow2()
+    {
+        GameObject[] maj = new GameObject[50];
+        maj[num2] = Instantiate(Tmahjongs[num2].prefab);
+        maj[num2].transform.localScale = Vector3.one;
+        maj[num2].transform.localRotation = Quaternion.identity;
+        maj[num2].transform.parent = GameObject.Find("Majtile").transform;
+        switch (Find(1))
+        {
+            case 0:
+                
+                maj[num2].transform.position = new Vector3(trs[Find(1)].position.x + (float)(0.02 * (int)(num2%6)), trs[Find(1)].position.y, trs[Find(1)].position.z - (float)(0.0265*(int)(num2/6)));
+                maj[num2].transform.rotation = Quaternion.Euler(0, 180, 0);
+                break;
+            case 1:
+                maj[num2].transform.position = new Vector3(trs[Find(1)].position.x+ (float)(0.0265 * (int)(num2 / 6)), trs[Find(1)].position.y, trs[Find(1)].position.z + (float)(0.02 * (int)(num2 % 6)));
+                maj[num2].transform.rotation = Quaternion.Euler(0, 90, 0);
+                break;
+            case 2:
+                maj[num2].transform.position = new Vector3(trs[Find(1)].position.x - (float)(0.02 * (int)(num2 % 6)), trs[Find(1)].position.y, trs[Find(1)].position.z+ (float)(0.0265 * (int)(num2 / 6)));
+                break;
+            case 3:
+                maj[num2].transform.position = new Vector3(trs[Find(1)].position.x- (float)(0.0265 * (int)(num2 / 6)), trs[Find(1)].position.y, trs[Find(1)].position.z - (float)(0.02 * (int)(num2 % 6)));
+                maj[num2].transform.rotation = Quaternion.Euler(0, 270, 0);
+                break;
+
+
+
+        }
+        num2++;
+        player.turned = false;
+        nextplayer.turned = true;
+    }
 
     public void MThrow(int a)
     {
@@ -103,8 +164,8 @@ public class PlayerCtrl : MonoBehaviour
 
 
                
-                Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
-                button.gameObject.SetActive(false); ;
+                
+                buttons[13].image.enabled = false ;
 
 
             }
@@ -115,82 +176,93 @@ public class PlayerCtrl : MonoBehaviour
                 Lmahjongs.Remove(Lmahjongs[0]);
                 ShowM();
                
-                Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
-                button.gameObject.SetActive(false); ;
+                
+                buttons[13].image.enabled = false;
             }
-            GameObject[] maj = new GameObject[50];
-            maj[num2] = Instantiate(Tmahjongs[num2].prefab);
-            maj[num2].transform.localScale = Vector3.one;
-            maj[num2].transform.localRotation = Quaternion.identity;
-          
-            switch (Find(1))
-            {
-                case 0:
-                    maj[num2].transform.position = new Vector3(trs[Find(1)].position.x + (float)(0.02 * num2), trs[Find(1)].position.y, trs[Find(1)].position.z);
-                    maj[num2].transform.rotation = Quaternion.Euler(0, 180, 0);
-                    break;
-                case 1:
-                    maj[num2].transform.position = new Vector3(trs[Find(1)].position.x, trs[Find(1)].position.y, trs[Find(1)].position.z + (float)(0.02 * num2));                 
-                    maj[num2].transform.rotation = Quaternion.Euler(0, 90, 0);
-                    break;
-                case 2:
-                    maj[num2].transform.position = new Vector3(trs[Find(1)].position.x - (float)(0.02 * num2), trs[Find(1)].position.y, trs[Find(1)].position.z);
-                    break;
-                case 3:
-                    maj[num2].transform.position = new Vector3(trs[Find(1)].position.x, trs[Find(1)].position.y, trs[Find(1)].position.z - (float)(0.02 * num2));                  
-                    maj[num2].transform.rotation = Quaternion.Euler(0, 270, 0);
-                    break;
-
-
-
-            }
-            num2++;
-            player.turned = false;
-            nextplayer.turned = true;
+            Mthrow2();
 
         }
 
         
     }
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (player.turned)
+        StartCoroutine(FirstStart());
+    }
+    // Update is called once per frame
+    void LateUpdate()
+    {
+       
+        if (player.turned&&GameManager.Gstate == GameManager.GameState.Play&& game.GetComponent<GameManager>().pmahjongs.Length > 0 && game.GetComponent<GameManager>().Rmahjongs.Length > 0)
         {
             GetM();
-            Button button = game.transform.GetChild(0).GetChild(0).GetChild(buttons.Length - 1).GetComponent<Button>();
-            button.gameObject.SetActive(true);
-            buttons[buttons.Length - 1] = button;
-            buttons[buttons.Length - 1].image.sprite = Lmahjongs[0].sprites;
-            turning = true;
+            if(buttons.Length > 0&& game.GetComponent<GameManager>().pmahjongs.Length > 0)
+            {
+                buttons[13].image.sprite = Lmahjongs[0].sprites;
+                buttons[13].image.enabled = true;
+            
+               
+                turning = true;
+            }
+           
         }
 
     }
    public void GetM()
     {
-        for (int i = 0; i < game.GetComponent<GameManager>().Rmahjongs.Length; i++)
-        {
-            if (!game.GetComponent<GameManager>().Rmahjongs[i].used)
-            {
-                Mahjong mahjong;
-                mahjong = game.GetComponent<GameManager>().Rmahjongs[i];
-                game.GetComponent<GameManager>().Rmahjongs[i].used = true;
-                Lmahjongs.Add(mahjong);
-                break;
-            }
-        }
-      
+
         player.turned = false;
-     
+
+        int used = 0;
+            for (int i = 0; i < game.GetComponent<GameManager>().Rmahjongs.Length; i++)
+            {
+                if (!game.GetComponent<GameManager>().Rmahjongs[i].used)
+                {
+                    Mahjong mahjong;
+                    mahjong = game.GetComponent<GameManager>().Rmahjongs[i];
+                    game.GetComponent<GameManager>().Rmahjongs[i].used = true;
+                    Lmahjongs.Add(mahjong);
+                    break;
+                }
+                else used++;
+
+                if (used >= game.GetComponent<GameManager>().Rmahjongs.Length - 1)
+                {
+                    
+                    GameManager.Gameturn++;
+                    GameManager.Gstate = GameManager.GameState.RoundEnd;
+                    break;
+                }
+            }
+
+          
+
+        
+
+
     }
     public void ShowM()
     {
-        for (int i = 0; i < buttons.Length - 1; i++)
+        Button button;
+        for (int i = 0; i < buttons.Length; i++)
         {
-            Button button = game.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<Button>();
+            button = game.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<Button>();
             buttons[i] = button;
-            buttons[i].image.sprite = pmahjongs[i].sprites;
+            if (i != buttons.Length - 1)
+            {
+        
+                buttons[i].image.sprite = pmahjongs[i].sprites;
+            }
+            else if (Lmahjongs.Count !=0)
+            {
+                buttons[i].image.sprite = Lmahjongs[0].sprites;
+                
+            }
+           
+
         }
+
+       
     }
 
 }

@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 {
     public enum GameState
     {
+       Start,
         Ready,
         Play,
         RoundEnd,
@@ -90,21 +91,68 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
+   
     void ReadyGame()
     {
-
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].GetComponent<PlayerCtrl>().StartPl();
+        }
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (!players[i].GetComponent<PlayerCtrl>().AIcheak)
+            {
+                players[i].GetComponent<PlayerCtrl>().Camera();
+            }
+            
+        }
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].turned = false;
+            if (players[i].wind == "East")
+            {
+                players[i].GetComponent<PlayerCtrl>().Oyas = true;
+                players[i].Oya = true;
+            }
+            
+        }
+        Gstate = GameState.Play;
     }
+
     void PlayGame()
     {
-
+       // SceneManager.LoadScene(1);
     }
     void RoundEnd()
     {
+       
+       
+        for (int i = 0; i < players.Length; i++)
+        {
+           
+                players[i].turned = false;
+            players[i].Oya = false;
+
+
+
+        }
+        GameObject[] gameObjects;
+        gameObjects = GameObject.FindGameObjectsWithTag("Mahjongs");
+      
+        for(int i = 0;i<gameObjects.Length;i++)
+        {
+            Destroy(gameObjects[i]);
+        }
+        Msetup();
+        PlayerSet2();
+        SplitM();
+      
 
     }
     void GameEnd()
     {
-
+       
+        SceneManager.LoadScene(0);
     }
     void GamePlayState(GameState state) // 게임 상태 
     {
@@ -115,21 +163,24 @@ public class GameManager : MonoBehaviour
 
             case GameState.Ready:
                 ReadyGame();
+                Gstate = GameState.Play;
                 break;
             case GameState.Play:
                 PlayGame();
                 break;
             case GameState.RoundEnd:
-                RoundEnd();
+              RoundEnd();
+               
                 break;
             case GameState.GameEnd:
-                GameEnd();
+              GameEnd();
                 break;
         }
     }
     private void Awake()
     {
-        Gstate = GameState.Ready;
+        
+        
         if (_instance == null)
         {
             _instance = this;
@@ -139,11 +190,21 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        Gstate = GameState.Start;
         PlayerSet();
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].turned = false;
+            if (players[i].wind == "East")
+            {
+                players[i].GetComponent<PlayerCtrl>().Oyas = true;
+                players[i].Oya = true;
+            }
+           
+        }
         Msetup();
         SplitM();
-
+       
 
     }
     IEnumerator CreatePlayer()
@@ -151,6 +212,43 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => isConnect);
         GameObject playertemp = PhotonNetwork.Instantiate("Player", Vector3.one, Quaternion.identity);
 
+    }
+    void PlayerSet2()
+    {
+      
+       
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (i == players.Length - 1)
+            {
+                break;
+            }
+            Player player;
+
+            player = players[i];
+
+          
+            players[i] = players[i + 1];
+            players [i + 1]= player;
+            
+                   
+
+        }
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].wind = winds[i];
+        }
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].wind == "East")
+            {
+                players[i].GetComponent<PlayerCtrl>().Oyas = true;
+                players[i].Oya = true;
+            }
+            
+        }
+        
+      
     }
     void PlayerSet()
     {
@@ -183,14 +281,7 @@ public class GameManager : MonoBehaviour
             players[i].wind = winds[i];
         }
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (players[i].wind == "East")
-            {
-                players[i].turned = true;
-                players[i].Oya = true;
-            }
-        }
+      
 
     }
 
@@ -255,7 +346,7 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < 4; j++)
             {
-                mahjongs[108 + (4 * i) + j] = new Mahjong(108 + (4 * i) + j, pedname[3], i, sprites[27 + i], false, mprefabs[27 + i]);
+                mahjongs[108 + (4 * i) + j] = new Mahjong(108 + (4 * i) + j, pedname[3], i+1, sprites[27 + i], false, mprefabs[27 + i]);
             }
 
         }
@@ -264,6 +355,7 @@ public class GameManager : MonoBehaviour
     }
     void SplitM()
     {
+       
         int random = 0;
         for (int i = 0; i < Rmahjongs.Length; i++)
         {
@@ -295,9 +387,9 @@ public class GameManager : MonoBehaviour
 
 
         }
-
+        Gstate = GameState.Ready;
         Kmsignal(0);
-
+        
     }
 
     public void Kmsignal(int a)
