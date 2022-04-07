@@ -20,12 +20,12 @@ public class AICtrl : PlayerCtrl
 
 
 
-        if (turning&&Lmahjongs.Count>0)
+        if (turning)
         {
             turning = false;
-            Tmahjongs.Add(Lmahjongs[0]);
-            Lmahjongs.Remove(Lmahjongs[0]);
-            yield return new WaitForSeconds(0.02f);
+            Tmahjongs.Add(pmahjongs[13]);
+            pmahjongs.Remove(pmahjongs[13]);
+            yield return new WaitForSeconds(1.2f);
             Mthrow2();
 
 
@@ -37,6 +37,8 @@ public class AICtrl : PlayerCtrl
     }
     void LateUpdate()
     {
+        time += Time.deltaTime;
+       
         if (player.turned&&GameManager.Gstate == GameManager.GameState.Play)
         {
             GetM();

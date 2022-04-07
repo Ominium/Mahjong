@@ -8,60 +8,79 @@ public class Tenpai : MonoBehaviour
     public PlayerCtrl playerCtrl;
     GameManager gameManager;
     int Pan =0;
-    int busu = 20;
+    int busu = 30;
     protected float oyascore = 1.0f;
     public static int ryunzzang = 0;
-    int[] nums = new int[14];
-    string[] patts = new string[14];
+ 
+    int body = 0;
 
-    void ped(PlayerCtrl playerCtrl)
+ 
+    List<Mahjong>[] tencheak = new List<Mahjong>[0];
+
+    public List<Mahjong>[] Tencheak { get => tencheak; set => tencheak = value; }
+
+    public enum TenpaiState
+    {
+       
+        Tenpai,
+        Hworyo
+    }
+    void testcheak()
     {
         
-        for(int i=0; i < playerCtrl.pmahjongs.Length; i++)
-        {
-            nums[i] = playerCtrl.pmahjongs[i].num;
-            patts[i] = playerCtrl.pmahjongs[i].patt;
+        for (int i = 0; i < playerCtrl.pmahjongs.Count;i++) {
+            switch (playerCtrl.pmahjongs[i].patt)
+            {
+                case "Charater":
+                    tencheak[0].Add(playerCtrl.pmahjongs[i]);
+                    break;
+                case "Circle":
+                    tencheak[1].Add(playerCtrl.pmahjongs[i]);
+                    break;
+                case "Bamboo":
+                    tencheak[2].Add(playerCtrl.pmahjongs[i]);
+                    break;
+                case "Dragon":
+                    tencheak[3].Add(playerCtrl.pmahjongs[i]);
+                    break;
+
+            }
         }
-        if (playerCtrl.turning)
+    }
+   
+    Pedigree Dora(Mahjong mahjong)
+    {
+        int Count = 0;
+        if (playerCtrl.player.Rich)
         {
-            nums[13] = playerCtrl.Lmahjongs[0].num;
-            patts[13] = playerCtrl.Lmahjongs[0].patt;
+
         }
         else
         {
-            nums[13] = 0;
-            patts[13] = null;
-        }
-        
-    }
-    void Pcheak()
-    {
-        
-        ped(playerCtrl);
-        for (int i = 0; i < patts.Length; i++)
-        {
-            if (patts[i] == patts[i+1])
+            for (int i = 0; i < playerCtrl.pmahjongs.Count; i++)
             {
-
-            }
-    
-        }
-    }
-    Pedigree Dora(Mahjong mahjong)
-    {
-        for(int i=0; i < playerCtrl.pmahjongs.Length; i++)
-        {
-            if(playerCtrl.pmahjongs[i].patt == mahjong.patt)
-            {
-                if(playerCtrl.pmahjongs[i].num == mahjong.num + 1)
+                if (playerCtrl.pmahjongs[i].patt == mahjong.patt)
                 {
-                    
-                   
-                    return gameManager.pedigrees[40];
+                    if (playerCtrl.pmahjongs[i].num == mahjong.num + 1)
+                    {
+                        Count++;
+
+                        
+                    }
                 }
             }
         }
-        return null;
+     
+       
+        Pedigree pedigree;
+        pedigree = gameManager.pedigrees[40];
+        pedigree.Pscore = Count;
+        pedigree.Pcryscore = Count;
+
+
+
+
+        return  pedigree; 
         
     }
     void Doraped()
@@ -71,6 +90,7 @@ public class Tenpai : MonoBehaviour
 
             playerCtrl.playerped.Add(Dora(playerCtrl.game.kingmah[i]));
         }
+        
     }
     
     int Pancheak(List<Pedigree> pedigrees)
@@ -90,11 +110,7 @@ public class Tenpai : MonoBehaviour
                 Score += pedigrees[i].Pscore;
             }
         }
-        if(Score > 13)
-        {
-            
-           
-        }
+        
         return  Score;
         
     }
@@ -306,7 +322,7 @@ public class Tenpai : MonoBehaviour
         {
             oyascore = 1.5f;
         }
-        ped(playerCtrl);
+     
     }
 
     private void Update()

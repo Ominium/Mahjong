@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour
     public GameObject pgroup;
     public Mahjong[] mahjongs = new Mahjong[136];
     public Mahjong[] Rmahjongs = new Mahjong[136];
-    public Mahjong[] pmahjongs = new Mahjong[13];
     public Sprite[] sprites = new Sprite[34];
     public Sprite[] akasprites = new Sprite[3];
     public Pedigree[] pedigrees = new Pedigree[48];
@@ -132,6 +131,7 @@ public class GameManager : MonoBehaviour
            
                 players[i].turned = false;
             players[i].Oya = false;
+            players[i].GetComponent<PlayerCtrl>().pmahjongs.Clear();
 
 
 
@@ -372,10 +372,10 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            for (int j = 0; j < players[i].GetComponent<PlayerCtrl>().pmahjongs.Length; j++)
+            for (int j = 0; j < 13; j++)
             {
                 Rmahjongs[players.Length * i + j].used = true;
-                players[i].GetComponent<PlayerCtrl>().pmahjongs[j] = Rmahjongs[players.Length * i + j];
+                players[i].GetComponent<PlayerCtrl>().pmahjongs.Add( Rmahjongs[players.Length * i + j]);
             }
 
 

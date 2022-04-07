@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1438743220072414482}
   - component: {fileID: 1438743220072414493}
   - component: {fileID: 3407607073715644739}
+  - component: {fileID: -6339109386190682340}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -47,12 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   Pname: 
-  cry: 0
-  riched: 0
   turned: 0
   wind: 
-  oya: 0
-  tenpai: 0
 --- !u!114 &1438743220072414493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +143,7 @@ MonoBehaviour:
     sprites: {fileID: 0}
     used: 0
     prefab: {fileID: 0}
-  Lmahjongs: []
+  Cmahjongs: []
   Tmahjongs: []
   buttons:
   - {fileID: 0}
@@ -163,7 +160,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  playerped: []
   turning: 0
+  nextplayer: {fileID: 0}
+  num2: 0
+  trs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  AIcheak: 0
+  camera: {fileID: 0}
+  Oyas: 0
+  time: 0
 --- !u!114 &3407607073715644739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,3 +195,16 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-6339109386190682340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438743220072414480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9facdc3a6472e45aacec8511326728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCtrl: {fileID: 1438743220072414493}

@@ -7,8 +7,9 @@ public class PlayerCtrl : MonoBehaviour
 {
     public GameManager game;
     public Player player;
-    public Mahjong[] pmahjongs = new Mahjong[13];
-    public List<Mahjong> Lmahjongs = new List<Mahjong>();
+    [SerializeField]
+    public List<Mahjong> pmahjongs = new List<Mahjong>();
+    public List<Mahjong> Cmahjongs = new List<Mahjong>();
     public List<Mahjong> Tmahjongs = new List<Mahjong>();
     public Button[] buttons = new Button[14];
     public List<Pedigree> playerped = new List<Pedigree>();
@@ -19,7 +20,7 @@ public class PlayerCtrl : MonoBehaviour
     public bool AIcheak = false;
     public Camera camera;
     public bool Oyas = false;
-
+    public float time = 0.0f;
    public IEnumerator FirstStart()
     {
         if (Oyas)
@@ -73,7 +74,7 @@ public class PlayerCtrl : MonoBehaviour
             trs[i] = GameObject.Find("trs").GetComponent<Transform>().GetChild(i);
         }
         Tmahjongs.Clear();
-        Lmahjongs.Clear();
+        Cmahjongs.Clear();
 
     }
     public void Camera()
@@ -91,10 +92,10 @@ public class PlayerCtrl : MonoBehaviour
     }
     public void ArrayM()
     {
-        for (int i = 0; i < pmahjongs.Length; i++)
+        for (int i = 0; i < pmahjongs.Count; i++)
         {
             int num = 1;
-            while (num + i < pmahjongs.Length)
+            while (num + i < pmahjongs.Count)
             {
                 if (pmahjongs[i].rank > pmahjongs[i + num].rank && pmahjongs[i + num].num != 0)
                 {
@@ -153,32 +154,20 @@ public class PlayerCtrl : MonoBehaviour
 
         if (turning)
         {
-            if (a != 13)
-            {
+           
                 turning = false;
                 Tmahjongs.Add(pmahjongs[a]);
-                pmahjongs[a] = Lmahjongs[0];
-                Lmahjongs.Remove(Lmahjongs[0]);
+                pmahjongs.Remove(pmahjongs[a]);
+             
                 ArrayM();
                 ShowM();
 
 
-               
-                
-                buttons[13].image.enabled = false ;
+             
 
 
-            }
-            else
-            {
-                turning = false;
-                Tmahjongs.Add(Lmahjongs[0]);
-                Lmahjongs.Remove(Lmahjongs[0]);
-                ShowM();
-               
-                
-                buttons[13].image.enabled = false;
-            }
+            
+          
             Mthrow2();
 
         }
@@ -187,33 +176,32 @@ public class PlayerCtrl : MonoBehaviour
     }
     private void Update()
     {
+        
         StartCoroutine(FirstStart());
     }
     // Update is called once per frame
     void LateUpdate()
     {
-       
-        if (player.turned&&GameManager.Gstate == GameManager.GameState.Play&& game.GetComponent<GameManager>().pmahjongs.Length > 0 && game.GetComponent<GameManager>().Rmahjongs.Length > 0)
+        time += Time.deltaTime;
+        
+        if (player.turned&&GameManager.Gstate == GameManager.GameState.Play&& game.GetComponent<GameManager>().Rmahjongs.Length > 0)
         {
             GetM();
-            if(buttons.Length > 0&& game.GetComponent<GameManager>().pmahjongs.Length > 0)
-            {
-                buttons[13].image.sprite = Lmahjongs[0].sprites;
-                buttons[13].image.enabled = true;
-            
-               
-                turning = true;
-            }
+            ShowM();
+            turning = true;
            
         }
 
     }
    public void GetM()
     {
-
+      
         player.turned = false;
-
+       
         int used = 0;
+        if(time >= 1.2f)
+        {
+            time = 0;
             for (int i = 0; i < game.GetComponent<GameManager>().Rmahjongs.Length; i++)
             {
                 if (!game.GetComponent<GameManager>().Rmahjongs[i].used)
@@ -221,45 +209,42 @@ public class PlayerCtrl : MonoBehaviour
                     Mahjong mahjong;
                     mahjong = game.GetComponent<GameManager>().Rmahjongs[i];
                     game.GetComponent<GameManager>().Rmahjongs[i].used = true;
-                    Lmahjongs.Add(mahjong);
+                    pmahjongs.Add(mahjong);
                     break;
                 }
                 else used++;
 
                 if (used >= game.GetComponent<GameManager>().Rmahjongs.Length - 1)
                 {
-                    
+
                     GameManager.Gameturn++;
                     GameManager.Gstate = GameManager.GameState.RoundEnd;
                     break;
                 }
             }
 
-          
+        }
 
-        
+
+
+
 
 
     }
     public void ShowM()
     {
         Button button;
-        for (int i = 0; i < buttons.Length; i++)
+        for(int i = 0; i< buttons.Length; i++)
         {
             button = game.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<Button>();
             buttons[i] = button;
-            if (i != buttons.Length - 1)
-            {
-        
-                buttons[i].image.sprite = pmahjongs[i].sprites;
-            }
-            else if (Lmahjongs.Count !=0)
-            {
-                buttons[i].image.sprite = Lmahjongs[0].sprites;
-                
-            }
-           
-
+          
+            buttons[i].image.enabled = false;
+        }
+        for (int i = 0; i < pmahjongs.Count; i++)
+        {
+            buttons[i].image.sprite = pmahjongs[i].sprites;
+            buttons[i].image.enabled = true;    
         }
 
        

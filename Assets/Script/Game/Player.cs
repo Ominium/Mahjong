@@ -52,8 +52,5 @@ public class Player : MonoBehaviour
         score = startscore;
     }
 
-    void Update()
-    {
-        
-    }
+  
 }

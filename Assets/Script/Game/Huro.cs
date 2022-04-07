@@ -20,12 +20,12 @@ public class Huro : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-        player.Cry = Cry();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        player.Cry = Cry();
     }
 }
