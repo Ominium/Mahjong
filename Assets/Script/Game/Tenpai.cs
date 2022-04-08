@@ -2,22 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Tsmahjongs
+{
+    public List<Mahjong> mahjongs = new List<Mahjong>();
+}
+public class Tencheak
+{
+    public List<Mahjong>[] tencheak = new List<Mahjong>[0];
+}
 public class Tenpai : MonoBehaviour
 {
-    
+
     public PlayerCtrl playerCtrl;
     GameManager gameManager;
-    int Pan =0;
+    int Pan = 0;
     int busu = 30;
     protected float oyascore = 1.0f;
     public static int ryunzzang = 0;
- 
+
     int body = 0;
 
- 
-    List<Mahjong>[] tencheak = new List<Mahjong>[0];
 
-    public List<Mahjong>[] Tencheak { get => tencheak; set => tencheak = value; }
+   
+    List<Tencheak> tencheaks = new List<Tencheak>();
+    public List<Tsmahjongs> tsmahjongs = new List<Tsmahjongs>();
+
+    
+    public List<Tencheak> Tencheaks { get => Tencheaks; set => Tencheaks = value; }
 
     public enum TenpaiState
     {
@@ -27,25 +39,75 @@ public class Tenpai : MonoBehaviour
     }
     void testcheak()
     {
-        
-        for (int i = 0; i < playerCtrl.pmahjongs.Count;i++) {
-            switch (playerCtrl.pmahjongs[i].patt)
-            {
-                case "Charater":
-                    tencheak[0].Add(playerCtrl.pmahjongs[i]);
-                    break;
-                case "Circle":
-                    tencheak[1].Add(playerCtrl.pmahjongs[i]);
-                    break;
-                case "Bamboo":
-                    tencheak[2].Add(playerCtrl.pmahjongs[i]);
-                    break;
-                case "Dragon":
-                    tencheak[3].Add(playerCtrl.pmahjongs[i]);
-                    break;
 
+        if (playerCtrl.player.turned)
+        {
+            tencheaks = new List<Tencheak>(4);
+            for(int i = 0; i< tencheaks.Count; i++)
+            {
+                tencheaks[i].tencheak = new List<Mahjong>[9];
+                for(int j = 0; j < tencheaks[i].tencheak[j].Count; j++)
+                {
+                    tencheaks[i].tencheak[j].Clear();
+                }
             }
+            
+            for (int i = 0; i < playerCtrl.pmahjongs.Count; i++)
+            {
+                switch (playerCtrl.pmahjongs[i].patt)
+                {
+                    case "Charater":
+                        tencheaks[0].tencheak[playerCtrl.pmahjongs[i].num].Add(playerCtrl.pmahjongs[i]);
+                        break;
+                    case "Circle":
+                        tencheaks[1].tencheak[playerCtrl.pmahjongs[i].num].Add(playerCtrl.pmahjongs[i]);
+                        break;
+                    case "Bamboo":
+                        tencheaks[2].tencheak[playerCtrl.pmahjongs[i].num].Add(playerCtrl.pmahjongs[i]);
+                        break;
+                    case "Dragons":
+                        tencheaks[3].tencheak[playerCtrl.pmahjongs[i].num].Add(playerCtrl.pmahjongs[i]);
+                        break;
+                }
+            }
+            
+            List<Mahjong> ttmahjongs = new List<Mahjong>();
+            List<Mahjong> ssmahjongs = new List<Mahjong>();
+            for (int i = 0; i < playerCtrl.pmahjongs.Count; i++)
+            {
+                ttmahjongs.Clear();
+                ssmahjongs.Clear();
+                ttmahjongs.Add(playerCtrl.pmahjongs[i]);
+                ssmahjongs.Add(playerCtrl.pmahjongs[i]);
+
+                for (int j = 0; j < playerCtrl.pmahjongs.Count - i; j++)
+                {
+                  
+                    if (playerCtrl.pmahjongs[i].rank /4 == playerCtrl.pmahjongs[j].rank / 4)
+                    {
+                        ttmahjongs.Add(playerCtrl.pmahjongs[j]);
+                    }
+                    if(playerCtrl.pmahjongs[i].rank / 4 == (playerCtrl.pmahjongs[j].rank / 4) +1 || playerCtrl.pmahjongs[i].rank / 4 == (playerCtrl.pmahjongs[j].rank / 4) - 1)
+                    {
+                        ssmahjongs.Add(playerCtrl.pmahjongs[j]);
+                    }
+                }
+               
+            }
+           
+            
+           
+            
         }
+       
+    }
+    Pedigree tanchancheak()
+    {
+
+        return gameManager.pedigrees[13];
+        return gameManager.pedigrees[5];
+        return null;
+
     }
    
     Pedigree Dora(Mahjong mahjong)
