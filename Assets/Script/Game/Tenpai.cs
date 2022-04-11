@@ -79,13 +79,18 @@ public class Tenpai : MonoBehaviour
                 ssmahjongs.Clear();
                 ttmahjongs.Add(playerCtrl.pmahjongs[i]);
                 ssmahjongs.Add(playerCtrl.pmahjongs[i]);
-
+              
                 for (int j = 0; j < playerCtrl.pmahjongs.Count - i; j++)
                 {
                   
                     if (playerCtrl.pmahjongs[i].rank /4 == playerCtrl.pmahjongs[j].rank / 4)
                     {
                         ttmahjongs.Add(playerCtrl.pmahjongs[j]);
+                        if (ttmahjongs.Count >= 3)
+                        {
+                            for(int i=0;i<ttmahjongs.Count)
+                            tsmahjongs[0].mahjongs.Add(ttmahjongs[0])
+                        }
                     }
                     if(playerCtrl.pmahjongs[i].rank / 4 == (playerCtrl.pmahjongs[j].rank / 4) +1 || playerCtrl.pmahjongs[i].rank / 4 == (playerCtrl.pmahjongs[j].rank / 4) - 1)
                     {
