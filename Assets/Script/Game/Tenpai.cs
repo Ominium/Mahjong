@@ -6,30 +6,33 @@ using UnityEngine;
 public class Tsmahjongs
 {
     public List<Mahjong> mahjongs = new List<Mahjong>();
+    
+
 }
-public class Tencheak
-{
-    public List<Mahjong>[] tencheak = new List<Mahjong>[0];
-}
+
 public class Tenpai : MonoBehaviour
 {
-
+    public List<List<Mahjong>> Mahjongs = new List<List<Mahjong>>();
     public PlayerCtrl playerCtrl;
     GameManager gameManager;
     int Pan = 0;
     int busu = 30;
     protected float oyascore = 1.0f;
     public static int ryunzzang = 0;
-
+    bool playing = false;
     int body = 0;
 
-
+    public bool Playing { 
+        get { return playing; }
+        set { playing = value; }
+    }
    
-    List<Tencheak> tencheaks = new List<Tencheak>();
-    public List<Tsmahjongs> tsmahjongs = new List<Tsmahjongs>();
 
-    
-    public List<Tencheak> Tencheaks { get => Tencheaks; set => Tencheaks = value; }
+    public List<List<Mahjong>> tsmahjongs = new List<List<Mahjong>>();
+    public List<Mahjong> ttmahjongs = new List<Mahjong>();
+    public List<Mahjong> ssmahjongs = new List<Mahjong>();
+
+
 
     public enum TenpaiState
     {
@@ -40,69 +43,129 @@ public class Tenpai : MonoBehaviour
     void testcheak()
     {
 
-        if (playerCtrl.player.turned)
+        if (playing)
         {
-            tencheaks = new List<Tencheak>(4);
-            for(int i = 0; i< tencheaks.Count; i++)
-            {
-                tencheaks[i].tencheak = new List<Mahjong>[9];
-                for(int j = 0; j < tencheaks[i].tencheak[j].Count; j++)
-                {
-                    tencheaks[i].tencheak[j].Clear();
-                }
-            }
             
-            for (int i = 0; i < playerCtrl.pmahjongs.Count; i++)
-            {
-                switch (playerCtrl.pmahjongs[i].patt)
-                {
-                    case "Charater":
-                        tencheaks[0].tencheak[playerCtrl.pmahjongs[i].num].Add(playerCtrl.pmahjongs[i]);
-                        break;
-                    case "Circle":
-                        tencheaks[1].tencheak[playerCtrl.pmahjongs[i].num].Add(playerCtrl.pmahjongs[i]);
-                        break;
-                    case "Bamboo":
-                        tencheaks[2].tencheak[playerCtrl.pmahjongs[i].num].Add(playerCtrl.pmahjongs[i]);
-                        break;
-                    case "Dragons":
-                        tencheaks[3].tencheak[playerCtrl.pmahjongs[i].num].Add(playerCtrl.pmahjongs[i]);
-                        break;
-                }
-            }
+            playing = false;
+
             
-            List<Mahjong> ttmahjongs = new List<Mahjong>();
-            List<Mahjong> ssmahjongs = new List<Mahjong>();
-            for (int i = 0; i < playerCtrl.pmahjongs.Count; i++)
+            tsmahjongs.Clear();
+            ttmahjongs.Clear();
+            ssmahjongs.Clear();
+
+            for (int i = 0; i < playerCtrl.pmahjongs.Count -1; i++)
             {
                 ttmahjongs.Clear();
                 ssmahjongs.Clear();
                 ttmahjongs.Add(playerCtrl.pmahjongs[i]);
-                ssmahjongs.Add(playerCtrl.pmahjongs[i]);
-              
-                for (int j = 0; j < playerCtrl.pmahjongs.Count - i; j++)
+                ssmahjongs.Add(playerCtrl.pmahjongs[i]);              
+                
+                for (int j = i +1 ; j < playerCtrl.pmahjongs.Count; j++)
                 {
-                  
-                    if (playerCtrl.pmahjongs[i].rank /4 == playerCtrl.pmahjongs[j].rank / 4)
+                    
+                    if (playerCtrl.pmahjongs[i].rank == 0)
+                    {
+                        if (playerCtrl.pmahjongs[j].rank / 4 == 0)
+                        {
+                            ttmahjongs.Add(playerCtrl.pmahjongs[j]);
+                            if (ttmahjongs.Count >= 3)
+                            {
+                                tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
+                                ttmahjongs.Clear();
+                                if (i < playerCtrl.pmahjongs.Count - 2)
+                                {
+                                    i = i + 2;
+                                }
+                                else if( i == playerCtrl.pmahjongs.Count - 1)
+                                {
+                                    i++;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                                    
+                                break;
+                            }
+                        }
+                    }
+                    else if ((playerCtrl.pmahjongs[i].rank / 4) == playerCtrl.pmahjongs[j].rank / 4)
                     {
                         ttmahjongs.Add(playerCtrl.pmahjongs[j]);
                         if (ttmahjongs.Count >= 3)
                         {
-                            for(int i=0;i<ttmahjongs.Count)
-                            tsmahjongs[0].mahjongs.Add(ttmahjongs[0])
+                            tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
+                            ttmahjongs.Clear();
+                            if (i < playerCtrl.pmahjongs.Count - 2)
+                            {
+                                i = i + 2;
+                            }
+                            else if (i == playerCtrl.pmahjongs.Count - 1)
+                            {
+                                i++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            break;
                         }
                     }
-                    if(playerCtrl.pmahjongs[i].rank / 4 == (playerCtrl.pmahjongs[j].rank / 4) +1 || playerCtrl.pmahjongs[i].rank / 4 == (playerCtrl.pmahjongs[j].rank / 4) - 1)
+                    else if ((playerCtrl.pmahjongs[i].rank / 4) == (playerCtrl.pmahjongs[j].rank / 4) + 1 || (playerCtrl.pmahjongs[i].rank / 4) == (playerCtrl.pmahjongs[j].rank / 4) -1)
                     {
                         ssmahjongs.Add(playerCtrl.pmahjongs[j]);
+                        if (ssmahjongs.Count >= 3)
+                        {
+                            tsmahjongs.Add(new List<Mahjong>(ssmahjongs));
+                       
+                            ssmahjongs.Clear();
+                            if (i < playerCtrl.pmahjongs.Count - 2)
+                            {
+                                i = i + 2;
+                            }
+                            else if (i == playerCtrl.pmahjongs.Count - 1)
+                            {
+                                i++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            break;
+                        }
                     }
                 }
-               
+
+                if (ttmahjongs.Count == 2)
+                {
+                    tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
+                    ttmahjongs.Clear();                  
+                    i++;
+                    if(i ==playerCtrl.pmahjongs.Count)
+                    {
+                        break;
+                    }
+                                 
+                }
+
             }
-           
+
+            for(int i= 0; i < playerCtrl.Cmahjongs.Count; i++)
+            {
+                tsmahjongs.Add(playerCtrl.Cmahjongs[i]);
+            }
             
-           
             
+            for(int i= 0; i<tsmahjongs.Count; i++)
+            {
+                for(int j = 0; j< tsmahjongs[i].Count; j++)
+                {
+                    Debug.Log( tsmahjongs[i][j].patt);
+                    Debug.Log(tsmahjongs[i][j].num);
+                    Debug.Log(tsmahjongs[i][j].rank);
+                }
+            }
+
         }
        
     }
@@ -184,6 +247,10 @@ public class Tenpai : MonoBehaviour
     public int RonScore()
 
     {
+        if (playerCtrl.player.Oya)
+        {
+            oyascore = 1.5f;
+        }
         Doraped();
         Pancheak(playerCtrl.playerped);
 
@@ -385,17 +452,15 @@ public class Tenpai : MonoBehaviour
     private void Start()
     {
         gameManager = GameObject.Find("Canvas").GetComponent<GameManager>();
-        if (playerCtrl.player.Oya)
-        {
-            oyascore = 1.5f;
-        }
-     
+
+        
+       
     }
 
     private void Update()
     {
-      
-
+       
+        testcheak();
 
     }
 

@@ -9,7 +9,7 @@ public class PlayerCtrl : MonoBehaviour
     public Player player;
     [SerializeField]
     public List<Mahjong> pmahjongs = new List<Mahjong>();
-    public List<Mahjong> Cmahjongs = new List<Mahjong>();
+    public List<List<Mahjong>> Cmahjongs = new List<List<Mahjong>>();
     public List<Mahjong> Tmahjongs = new List<Mahjong>();
     public Button[] buttons = new Button[14];
     public List<Pedigree> playerped = new List<Pedigree>();
@@ -21,6 +21,13 @@ public class PlayerCtrl : MonoBehaviour
     public Camera camera;
     public bool Oyas = false;
     public float time = 0.0f;
+    public enum PlayerState
+    {
+        Play,
+        Stay,
+        End
+    }
+    public PlayerState state;
    public IEnumerator FirstStart()
     {
         if (Oyas)
@@ -154,8 +161,8 @@ public class PlayerCtrl : MonoBehaviour
 
         if (turning)
         {
-           
-                turning = false;
+
+            turning = false;
                 Tmahjongs.Add(pmahjongs[a]);
                 pmahjongs.Remove(pmahjongs[a]);
              
@@ -163,7 +170,7 @@ public class PlayerCtrl : MonoBehaviour
                 ShowM();
 
 
-             
+               
 
 
             
@@ -189,13 +196,16 @@ public class PlayerCtrl : MonoBehaviour
             GetM();
             ShowM();
             turning = true;
-           
+
+            Tenpai tenpai = GetComponent<Tenpai>();
+            tenpai.Playing = true;
+            state = PlayerState.Play;
         }
 
     }
    public void GetM()
     {
-      
+       
         player.turned = false;
        
         int used = 0;

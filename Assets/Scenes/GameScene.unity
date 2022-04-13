@@ -3723,6 +3723,7 @@ MonoBehaviour:
   camera: {fileID: 0}
   Oyas: 0
   time: 0
+  state: 0
 --- !u!1 &708255932
 GameObject:
   m_ObjectHideFlags: 0
@@ -4287,6 +4288,7 @@ MonoBehaviour:
   camera: {fileID: 0}
   Oyas: 0
   time: 0
+  state: 0
 --- !u!1 &854160177
 GameObject:
   m_ObjectHideFlags: 0
@@ -4792,6 +4794,7 @@ MonoBehaviour:
   camera: {fileID: 0}
   Oyas: 0
   time: 0
+  state: 0
 --- !u!1 &1094488481
 GameObject:
   m_ObjectHideFlags: 0
@@ -5616,6 +5619,7 @@ GameObject:
   - component: {fileID: 1570064791}
   - component: {fileID: 1570064792}
   - component: {fileID: 4376709121833065926}
+  - component: {fileID: 1570064793}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5698,6 +5702,20 @@ MonoBehaviour:
   camera: {fileID: 0}
   Oyas: 0
   time: 0
+  state: 0
+--- !u!114 &1570064793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570064789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9facdc3a6472e45aacec8511326728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCtrl: {fileID: 1570064792}
 --- !u!1 &1636951160
 GameObject:
   m_ObjectHideFlags: 0
