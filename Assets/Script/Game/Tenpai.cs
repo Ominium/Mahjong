@@ -68,18 +68,14 @@ public class Tenpai : MonoBehaviour
                         if (playerCtrl.pmahjongs[j].rank / 4 == 0)
                         {
                             ttmahjongs.Add(playerCtrl.pmahjongs[j]);
-                            if (ttmahjongs.Count >= 3)
+                            if (ttmahjongs.Count > 2)
                             {
                                 tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
                                 ttmahjongs.Clear();
                                 if (i < playerCtrl.pmahjongs.Count - 2)
                                 {
                                     i = i + 2;
-                                }
-                                else if( i == playerCtrl.pmahjongs.Count - 1)
-                                {
-                                    i++;
-                                }
+                                }                               
                                 else
                                 {
                                     break;
@@ -92,18 +88,14 @@ public class Tenpai : MonoBehaviour
                     else if ((playerCtrl.pmahjongs[i].rank / 4) == playerCtrl.pmahjongs[j].rank / 4)
                     {
                         ttmahjongs.Add(playerCtrl.pmahjongs[j]);
-                        if (ttmahjongs.Count >= 3)
+                        if (ttmahjongs.Count > 2)
                         {
                             tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
                             ttmahjongs.Clear();
                             if (i < playerCtrl.pmahjongs.Count - 2)
                             {
                                 i = i + 2;
-                            }
-                            else if (i == playerCtrl.pmahjongs.Count - 1)
-                            {
-                                i++;
-                            }
+                            }                       
                             else
                             {
                                 break;
@@ -111,10 +103,22 @@ public class Tenpai : MonoBehaviour
                             break;
                         }
                     }
-                    else if ((playerCtrl.pmahjongs[i].rank / 4) == (playerCtrl.pmahjongs[j].rank / 4) + 1 || (playerCtrl.pmahjongs[i].rank / 4) == (playerCtrl.pmahjongs[j].rank / 4) -1)
+                    else if ((playerCtrl.pmahjongs[i].rank / 4) == (playerCtrl.pmahjongs[j].rank / 4) - 1)
                     {
                         ssmahjongs.Add(playerCtrl.pmahjongs[j]);
-                        if (ssmahjongs.Count >= 3)
+                        if( j < playerCtrl.pmahjongs.Count - 1)
+                        {
+                            for (int z = j + 1; z < playerCtrl.pmahjongs.Count; z++)
+                            {
+                                if ((playerCtrl.pmahjongs[j].rank / 4) == (playerCtrl.pmahjongs[z].rank / 4) - 1)
+                                {
+                                    ssmahjongs.Add(playerCtrl.pmahjongs[z]);
+                                }
+
+                            }                            
+                        }
+                                             
+                        if (ssmahjongs.Count > 2)
                         {
                             tsmahjongs.Add(new List<Mahjong>(ssmahjongs));
                        
@@ -122,10 +126,6 @@ public class Tenpai : MonoBehaviour
                             if (i < playerCtrl.pmahjongs.Count - 2)
                             {
                                 i = i + 2;
-                            }
-                            else if (i == playerCtrl.pmahjongs.Count - 1)
-                            {
-                                i++;
                             }
                             else
                             {
@@ -160,9 +160,9 @@ public class Tenpai : MonoBehaviour
             {
                 for(int j = 0; j< tsmahjongs[i].Count; j++)
                 {
-                    Debug.Log( tsmahjongs[i][j].patt);
+                   
                     Debug.Log(tsmahjongs[i][j].num);
-                    Debug.Log(tsmahjongs[i][j].rank);
+                    
                 }
             }
 
