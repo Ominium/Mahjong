@@ -31,6 +31,7 @@ public class Tenpai : MonoBehaviour
     public List<List<Mahjong>> tsmahjongs = new List<List<Mahjong>>();
     public List<Mahjong> ttmahjongs = new List<Mahjong>();
     public List<Mahjong> ssmahjongs = new List<Mahjong>();
+    public List<Mahjong> playerMahjong = new List<Mahjong> { };
 
 
 
@@ -45,130 +46,229 @@ public class Tenpai : MonoBehaviour
 
         if (playing)
         {
-            
+
             playing = false;
 
-            
+
             tsmahjongs.Clear();
             ttmahjongs.Clear();
             ssmahjongs.Clear();
-
-            for (int i = 0; i < playerCtrl.pmahjongs.Count -1; i++)
+            int sscount = 1;
+            playerMahjong.AddRange(playerCtrl.pmahjongs);
+            while (playerMahjong.Count != 0)
             {
-                ttmahjongs.Clear();
-                ssmahjongs.Clear();
-                ttmahjongs.Add(playerCtrl.pmahjongs[i]);
-                ssmahjongs.Add(playerCtrl.pmahjongs[i]);              
-                
-                for (int j = i +1 ; j < playerCtrl.pmahjongs.Count; j++)
+
+                ttmahjongs.Add(playerMahjong[0]);
+                ssmahjongs.Add(playerMahjong[0]);
+                playerMahjong.RemoveAt(0);
+                for (int j = 0; j < playerMahjong.Count; j++)
                 {
-                    
-                    if (playerCtrl.pmahjongs[i].rank == 0)
+
+                    if (ttmahjongs[0].rank == 0)
                     {
+
                         if (playerCtrl.pmahjongs[j].rank / 4 == 0)
                         {
-                            ttmahjongs.Add(playerCtrl.pmahjongs[j]);
-                            if (ttmahjongs.Count > 2)
-                            {
-                                tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
-                                ttmahjongs.Clear();
-                                if (i < playerCtrl.pmahjongs.Count - 2)
-                                {
-                                    i = i + 2;
-                                }                               
-                                else
-                                {
-                                    break;
-                                }
-                                    
-                                break;
-                            }
+                            ttmahjongs.Add(playerMahjong[j]);
+                            playerMahjong.RemoveAt(j);
                         }
-                    }
-                    else if ((playerCtrl.pmahjongs[i].rank / 4) == playerCtrl.pmahjongs[j].rank / 4)
-                    {
-                        ttmahjongs.Add(playerCtrl.pmahjongs[j]);
-                        if (ttmahjongs.Count > 2)
+                        else if (playerCtrl.pmahjongs[j].rank / 4 == sscount)
                         {
-                            tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
-                            ttmahjongs.Clear();
-                            if (i < playerCtrl.pmahjongs.Count - 2)
-                            {
-                                i = i + 2;
-                            }                       
-                            else
-                            {
-                                break;
-                            }
-                            break;
-                        }
-                    }
-                    else if ((playerCtrl.pmahjongs[i].rank / 4) == (playerCtrl.pmahjongs[j].rank / 4) - 1)
-                    {
-                        ssmahjongs.Add(playerCtrl.pmahjongs[j]);
-                        if( j < playerCtrl.pmahjongs.Count - 1)
-                        {
-                            for (int z = j + 1; z < playerCtrl.pmahjongs.Count; z++)
-                            {
-                                if ((playerCtrl.pmahjongs[j].rank / 4) == (playerCtrl.pmahjongs[z].rank / 4) - 1)
-                                {
-                                    ssmahjongs.Add(playerCtrl.pmahjongs[z]);
-                                }
+                            ssmahjongs.Add(playerMahjong[j]);
+                            playerMahjong.RemoveAt(j);
+                            sscount++;
 
-                            }                            
                         }
-                                             
-                        if (ssmahjongs.Count > 2)
+                    }
+                    else
+                    {
+                        sscount = (ttmahjongs[0].rank / 4) + 1;
+                        if (ttmahjongs[0].rank / 4 == playerMahjong[j].rank / 4)
                         {
-                            tsmahjongs.Add(new List<Mahjong>(ssmahjongs));
-                       
-                            ssmahjongs.Clear();
-                            if (i < playerCtrl.pmahjongs.Count - 2)
-                            {
-                                i = i + 2;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                            break;
+                            ttmahjongs.Add(playerMahjong[j]);
+                            playerMahjong.RemoveAt(j);
                         }
+                        else if (playerCtrl.pmahjongs[j].rank / 4 == sscount)
+                        {
+                            ssmahjongs.Add(playerMahjong[j]);
+                            playerMahjong.RemoveAt(j);
+                        }
+                    }
+                    if (ttmahjongs.Count == 3)
+                    {
+                        tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
+                        ttmahjongs.Clear();
+                    }
+                    if (ttmahjongs.Count == 2 && j == playerMahjong.Count - 1)
+                    {
+                        tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
+                        ttmahjongs.Clear();
+                    }
+                    if (ssmahjongs.Count == 3)
+                    {
+                        tsmahjongs.Add(new List<Mahjong>(ssmahjongs));
+                        ssmahjongs.Clear();
+                    }
+                    if (ssmahjongs.Count == 2 && j == playerMahjong.Count - 1)
+                    {
+                        tsmahjongs.Add(new List<Mahjong>(ssmahjongs));
+                        ssmahjongs.Clear();
+                    }
+                    if (ttmahjongs.Count == 1 && j == playerMahjong.Count - 1)
+                    {
+                        tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
+                        ttmahjongs.Clear();
+                    }
+
+                    if (ssmahjongs.Count == 1 && j == playerMahjong.Count - 1)
+                    {
+                        tsmahjongs.Add(new List<Mahjong>(ssmahjongs));
+                        ssmahjongs.Clear();
+                    }
+
+
+                }
+                for (int i = 0; i < tsmahjongs.Count; i++)
+                {
+                    for (int j = 0; j < tsmahjongs[i].Count; j++)
+                    {
+
+                        Debug.Log(tsmahjongs[i][j].num);
+
                     }
                 }
 
-                if (ttmahjongs.Count == 2)
+            }
+        }
+    }
+    /*
+    for (int i = 0; i < playerCtrl.pmahjongs.Count -1; i++)
+    {
+        ttmahjongs.Clear();
+        ssmahjongs.Clear();
+        ttmahjongs.Add(playerCtrl.pmahjongs[i]);
+        ssmahjongs.Add(playerCtrl.pmahjongs[i]);              
+
+        for (int j = i +1 ; j < playerCtrl.pmahjongs.Count; j++)
+        {
+
+            if (playerCtrl.pmahjongs[i].rank == 0)
+            {
+                if (playerCtrl.pmahjongs[j].rank / 4 == 0)
+                {
+                    ttmahjongs.Add(playerCtrl.pmahjongs[j]);
+                    if (ttmahjongs.Count > 2)
+                    {
+                        tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
+                        ttmahjongs.Clear();
+                        if (i < playerCtrl.pmahjongs.Count - 2)
+                        {
+                            i = i + 2;
+                        }                               
+                        else
+                        {
+                            break;
+                        }
+
+                        break;
+                    }
+                }
+            }
+            else if ((playerCtrl.pmahjongs[i].rank / 4) == playerCtrl.pmahjongs[j].rank / 4)
+            {
+                ttmahjongs.Add(playerCtrl.pmahjongs[j]);
+                if (ttmahjongs.Count > 2)
                 {
                     tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
-                    ttmahjongs.Clear();                  
-                    i++;
-                    if(i ==playerCtrl.pmahjongs.Count)
+                    ttmahjongs.Clear();
+                    if (i < playerCtrl.pmahjongs.Count - 2)
+                    {
+                        i = i + 2;
+                    }                       
+                    else
                     {
                         break;
                     }
-                                 
+                    break;
                 }
-
             }
-
-            for(int i= 0; i < playerCtrl.Cmahjongs.Count; i++)
+            else if ((playerCtrl.pmahjongs[i].rank / 4) == (playerCtrl.pmahjongs[j].rank / 4) - 1)
             {
-                tsmahjongs.Add(playerCtrl.Cmahjongs[i]);
-            }
-            
-            
-            for(int i= 0; i<tsmahjongs.Count; i++)
-            {
-                for(int j = 0; j< tsmahjongs[i].Count; j++)
+                ssmahjongs.Add(playerCtrl.pmahjongs[j]);
+                if( j < playerCtrl.pmahjongs.Count - 1)
                 {
-                   
-                    Debug.Log(tsmahjongs[i][j].num);
-                    
+                    for (int z = j + 1; z < playerCtrl.pmahjongs.Count; z++)
+                    {
+                        if ((playerCtrl.pmahjongs[j].rank / 4) == (playerCtrl.pmahjongs[z].rank / 4) - 1)
+                        {
+                            ssmahjongs.Add(playerCtrl.pmahjongs[z]);
+                            if (z < playerCtrl.pmahjongs.Count - 1)
+                            {
+                                i
+                            }
+                            break;
+                        }
+
+                    }
                 }
+
+                if (ssmahjongs.Count > 2)
+                {
+                    tsmahjongs.Add(new List<Mahjong>(ssmahjongs));
+
+                    ssmahjongs.Clear();
+
+
+                    break;
+                }
+                else
+                {
+                    tsmahjongs.Add(new List<Mahjong>(ssmahjongs));
+
+                    ssmahjongs.Clear();
+                }
+            }
+            else if((playerCtrl.pmahjongs[i].rank / 4) == (playerCtrl.pmahjongs[j].rank / 4) - 2)
+            {
+                ssmahjongs.Add(playerCtrl.pmahjongs[j]);
+
+            }
+        }
+
+        if (ttmahjongs.Count == 2)
+        {
+            tsmahjongs.Add(new List<Mahjong>(ttmahjongs));
+            ttmahjongs.Clear();                  
+            i++;
+            if(i ==playerCtrl.pmahjongs.Count)
+            {
+                break;
             }
 
         }
-       
+
+
     }
+
+    for(int i= 0; i < playerCtrl.Cmahjongs.Count; i++)
+    {
+        tsmahjongs.Add(playerCtrl.Cmahjongs[i]);
+    }
+
+
+    for(int i= 0; i<tsmahjongs.Count; i++)
+    {
+        for(int j = 0; j< tsmahjongs[i].Count; j++)
+        {
+
+            Debug.Log(tsmahjongs[i][j].num);
+
+        }
+    }
+
+}*/
+
+
     Pedigree tanchancheak()
     {
 
