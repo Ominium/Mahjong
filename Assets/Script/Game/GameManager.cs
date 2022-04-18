@@ -15,6 +15,12 @@ public class Mahjong
     public Sprite sprites;
     public bool used = false;
     public GameObject prefab;
+    private bool aka = false;
+    public bool Aka
+    {
+        get { return aka; }
+        set { aka = value; }
+    }
     public Mahjong(int a, string b, int c, Sprite sprite, bool d, GameObject e)
     {
         rank = a;
@@ -24,6 +30,20 @@ public class Mahjong
         used = d;
         prefab = e;
     }
+    
+
+    public bool YoguPae()
+    {
+        if (patt == "Dragons" || num == 1 || num == 9)
+        {
+            return true;
+        }
+        else return false;
+
+    }
+ 
+
+   
 }
 [System.Serializable]
 public class Pedigree
@@ -56,6 +76,12 @@ public class GameManager : MonoBehaviour
         RoundEnd,
         GameEnd,
     }
+    private string GameWinds;
+    public string gameWinds
+    {
+        get { return GameWinds; }
+        set {gameWinds = value; }
+    }
     public GameObject pgroup;
     public Mahjong[] mahjongs = new Mahjong[136];
     public Mahjong[] Rmahjongs = new Mahjong[136];
@@ -71,6 +97,11 @@ public class GameManager : MonoBehaviour
     public GameObject[] akaprefabs = new GameObject[3];
     int num2 = 0;
     string[] winds = new string[4];
+    public string[] Winds
+    {
+        get { return winds;}
+        set { winds = value; }  
+    }
     private static GameManager _instance = null;
     public PhotonView photonView;
     public bool isConnect = false;
@@ -143,6 +174,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObjects[i]);
         }
+        GameWinds = winds[Gameturn / 2];
         Msetup();
         PlayerSet2();
         SplitM();
@@ -419,7 +451,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         GamePlayState(Gstate);
-        if((players[0].score < 0)|| (players[1].score< 0)|| (players[2].score < 0)|| (players[3].score < 0)|| Gameturn ==8)
+        if((players[0].score < 0)|| (players[1].score< 0)|| (players[2].score < 0)|| (players[3].score < 0)|| Gameturn ==7)
         {
             Gstate = GameState.GameEnd;
         }
