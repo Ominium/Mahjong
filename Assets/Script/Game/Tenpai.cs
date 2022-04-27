@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+
 public class Tsmahjongs
 {
-    public List<Mahjong> mahjongs = new List<Mahjong>();
-    
-
+   
 }
 
 public class Tenpai : MonoBehaviour
 {
-    public List<List<Mahjong>> Mahjongs = new List<List<Mahjong>>();
+  
+
     public PlayerCtrl playerCtrl;
     GameManager gameManager;
     int Pan = 0;
@@ -26,12 +25,31 @@ public class Tenpai : MonoBehaviour
         get { return playing; }
         set { playing = value; }
     }
-   
 
-    public List<List<Mahjong>> tsmahjongs = new List<List<Mahjong>>();
-    public List<Mahjong> ttmahjongs = new List<Mahjong>();
-    public List<Mahjong> ssmahjongs = new List<Mahjong>();
-    public List<Mahjong> playerMahjong = new List<Mahjong> { };
+    List<int> Mranks = new List<int>();
+    List<string> Mpatton = new List<string>();
+    private int CuzzCount;
+    private int TTcount;
+    private int SScount;
+    public void GetMrs(List<Mahjong> mahjongs)
+    {
+        foreach (var Mah in mahjongs)
+        {
+            Mranks.Add(Mah.rank/ 4);
+            Mpatton.Add(Mah.patt);
+        }
+    }
+    void Game()
+    {
+        ReturnM(ref CuzzCount, ref TTcount, ref SScount);
+    }
+    public void ReturnM(ref int Cuzzc, ref int TTc, ref int SSc)
+    {
+        GetMrs(playerCtrl.pmahjongs);
+            
+        
+        
+    }
 
 
 
@@ -42,35 +60,9 @@ public class Tenpai : MonoBehaviour
         Hworyo
 
     }
+    public TenpaiState state;
 
-    private List<Mahjong> TTmahjongs()
-    {
-
-
-
-
-
-
-
-        return null;
-    }
-
-    private bool Testtenpai()
-    {
-
-
-
-
-
-
-
-
-
-        return true;
-
-    }
-     
-   
+ 
     Pedigree Dora(Mahjong mahjong)
     {
         int Count = 0;
@@ -374,9 +366,5 @@ public class Tenpai : MonoBehaviour
 
     }
 
-   void Cheak()
-    {
-
-    }
 
 }
